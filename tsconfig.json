@@ -1,14 +1,22 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
-        "module": "CommonJS",
-        "declaration": true,
-        "esModuleInterop": true,
-        "outDir": "./dist",
-        "strict": true,
-        "downlevelIteration": true,
-        "jsx": "react-jsx"
+      "target": "ES5",
+      "useDefineForClassFields": true,
+      "lib": ["ES2020", "DOM", "DOM.Iterable"],
+      "module": "ESNext",
+      "skipLibCheck": true,
+      "moduleResolution": "bundler",
+      "allowImportingTsExtensions": true,
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "noEmit": true,
+      "jsx": "react-jsx",
+      "strict": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noFallthroughCasesInSwitch": true,
+      "declaration": true
     },
     "include": ["src"],
-    "exclude": ["node_modules"]
-}
+    "exclude": ["src/**/__docs__", "src/**/__test__"]
+  }        

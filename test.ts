@@ -1,17 +1,28 @@
 
+/* const sx1 = createSx({
+  classes: <const>['asd', 'xyz'],
+  definitions: {
+    'brad20': { borderRadius: 4 }
+  },
+  theme: {} as any
+});
 
-function createFunction(){
-  const adder = (a:number, b:number) => a + b;
-  adder.fish = 'smelly';
+const sx2 = extendSx(sx1, {
+  classes: <const>['jjj'],
+  definitions: {fs: {fontSize: '1rem'}}
+})
 
-  return adder;
-}
+const sx3 = extendSx(sx2, {
+  classes: <const>['kkk']
+});
 
+const styles = sx1(
+  { fontSize: '123' },
+  {
+    [x.cls('asd', 'xyz')]: {
 
-
-const fn = createFunction();
-
-console.log(
-  fn(1,2),
-  fn.fish
+    },
+    ...x.defs.brad20
+  },
 )
+ */

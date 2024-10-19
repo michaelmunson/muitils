@@ -13,7 +13,7 @@ type CombineArrays<T extends readonly any[], U extends readonly any[]> = readonl
 const letters = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const cssOperator = <const>['&', ' ', '+', '>', ',', '*', '=', '[', ']'];
 type ElementSelector = keyof HTMLElementTagNameMap | `${string}-${string}`;
-type ClassSelector = `.${string}`;
+// type ClassSelector = `.${string}`;
 type CSSOperator = (typeof cssOperator)[number];
 
 type ClassList = readonly string[];
@@ -75,7 +75,7 @@ type Sx<Config extends SxConfig<Theme> = any, Theme extends MuiTheme = any> = (
   SxFunction<Config, Theme> & SxExtensions<Config, Theme>
 )
 
-const isDefinition = <Config extends SxConfig, Theme extends MuiTheme>(config: Config, str: any): str is keyof Config['definitions'] => (
+const isDefinition = <Config extends SxConfig>(config: Config, str: any): str is keyof Config['definitions'] => (
   typeof str === "string" && str in config['definitions']
 );
 const isElementSelector = (selector: any): selector is ElementSelector => typeof selector === 'string' && letters.includes(selector[0]);
@@ -122,7 +122,7 @@ function createSxExtensions  <Config extends SxConfig<Theme>, Theme extends MuiT
     def(definition) {
       const definitions: Config['definitions'] = config.definitions;
       if (!isDefinition(config, definition)) {
-        console.warn(`Warning: "${definition}" is not defined in Muitils SxConfig`);
+        console.warn(`Warning: "${definition.toString()}" is not defined in Muitils SxConfig`);
         return {} as any;
       }
       return definitions[definition];
@@ -179,31 +179,3 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart<Theme>, Them
     theme,
   }) as any
 }
-
-/* const sx1 = createSx({
-  classes: <const>['asd', 'xyz'],
-  definitions: {
-    'brad20': { borderRadius: 4 }
-  },
-  theme: {} as any
-});
-
-const sx2 = extendSx(sx1, {
-  classes: <const>['jjj'],
-  definitions: {fs: {fontSize: '1rem'}}
-})
-
-const sx3 = extendSx(sx2, {
-  classes: <const>['kkk']
-});
-
-const styles = sx1(
-  { fontSize: '123' },
-  {
-    [x.cls('asd', 'xyz')]: {
-
-    },
-    ...x.defs.brad20
-  },
-)
- */
