@@ -1,5 +1,4 @@
-import { createTheme, SxProps as MuiSxProps, Theme as MuiTheme, PaletteOptions } from "@mui/material"
-import sx from "../sx";
+import { SxProps as MuiSxProps, Theme as MuiTheme } from "@mui/material"
 
 const DEFAULT_CONFIG: SxConfig = {
   classes: [] as const,
@@ -69,7 +68,7 @@ type SxExtensions<Config extends SxConfig<Theme>, Theme extends MuiTheme = any> 
   definitions: Config['definitions'];
   theme: Config['theme'];
   colors: Config['theme']['palette'];
-  '::extend': <ConfigPart extends SxConfigPart<Theme>>(configuration:ConfigPart) => SxConfigMerge<Config, ConfigPart, Theme>
+  // '::extend': <ConfigPart extends SxConfigPart<Theme>>(configuration:ConfigPart) => SxConfigMerge<Config, ConfigPart, Theme>
 }
 
 type Sx<Config extends SxConfig<Theme> = any, Theme extends MuiTheme = any> = (
@@ -151,19 +150,13 @@ function createSxExtensions  <Config extends SxConfig<Theme>, Theme extends MuiT
     },
     _sel(...selectors) {
       return `& ${this.sel(...selectors)}`
-    },
-    '::extend'<ConfigPart extends SxConfigPart<Theme>>(configuration:ConfigPart){
-      return extendSx(
-        createSx(config), 
-        configuration
-      );
     }
   }
 }
 
 
 /**@_EXPORT */
-export function createSx<Config extends SxConfigPart<Theme>, Theme extends MuiTheme = any>(configuration: Config): Sx<SxConfigDefault<Config, Theme>, Theme> {
+export function createSx<Config extends SxConfigPart<Theme>, Theme extends MuiTheme = any>(configuration: Config=({} as Config)): Sx<SxConfigDefault<Config, Theme>, Theme> {
   const config = createConfig(configuration);
   const sxFunction = createSxFunction(config);
   const sxExtensions = createSxExtensions(config);
@@ -187,7 +180,7 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart<Theme>, Them
   }) as any
 }
 
-const sx1 = createSx({
+/* const sx1 = createSx({
   classes: <const>['asd', 'xyz'],
   definitions: {
     'brad20': { borderRadius: 4 }
@@ -204,8 +197,6 @@ const sx3 = extendSx(sx2, {
   classes: <const>['kkk']
 });
 
-const sx4 = sx3["::extend"]({classes: <const>['qqq']})
-
 const styles = sx1(
   { fontSize: '123' },
   {
@@ -215,3 +206,4 @@ const styles = sx1(
     ...x.defs.brad20
   },
 )
+ */

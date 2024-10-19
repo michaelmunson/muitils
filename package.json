@@ -7,11 +7,11 @@
   "module": "dist/index.js",
   "exports": {
     ".": "./dist/index.js",
-    "./props": "./dist/props/index.js",
-    "./intrinsics": "./dist/intrinsics/index.js",
-    "./components": "./dist/components/index.js",
-    "./utils": "./dist/utils/index.js",
-    "./types": "./dist/types.js"
+    "./Button": "./dist/Button/index.js",
+    "./Container": "./dist/Container/index.js",
+    "./Field": "./dist/Field/index.js",
+    "./Flex": "./dist/Flex/index.js",
+    "./Form": "./dist/Form.js"
   },
   "scripts": {
     "build": "rm -rf dist && tsc",

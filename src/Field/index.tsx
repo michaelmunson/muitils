@@ -1,11 +1,14 @@
 import { Skeleton, Typography } from "@mui/material";
 import Flex, {FlexProps } from "../Flex";
-import sx from "../sx";
+import {createSx} from "../sx";
 
-const cls = sx.classes('field','value')
+const sx = createSx({
+  classes: ['field', 'value'] as const,
+});
+
 const FieldSx = sx({
   p:0,
-  [sx._cls(cls.field)] : {
+  [sx._cls('field')] : {
     pr: 1
   }
 })
@@ -15,7 +18,7 @@ export default function Field(props:{label:string, value?:string} & FlexProps){
 
   return (
     <Flex row sx={sx(FieldSx, _sx)} {...rest}>
-      <Typography className={cls.field}><b>{label}</b>:</Typography>
+      <Typography className={sx.classes.field}><b>{label}</b>:</Typography>
       {!value ? (
         <Skeleton width={'200px'}/>
       ) : (

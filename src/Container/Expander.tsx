@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { Box, SxProps } from '@mui/material';
 import Row, { RowProps } from '../Flex/Row';
 import Icon from '../Icon';
-import sx from '../sx';
+import {createSx} from '../sx';
 
-const cls = sx.classes('expander_container', 'expanded');
+const sx = createSx({
+  classes: ['expander_container', 'expanded'] as const,
+})
 
 export type ExpanderProps = Omit<RowProps, "onChange"> & {
   trigger?: Icon.IconName | Icon.Props;
@@ -40,19 +42,19 @@ function Expander(props: ExpanderProps) {
   }, [isExpanded])
 
   return (
-    <Row className={[className, isExpanded ? cls.expanded : ''].filter(x => x).join(' ')} sx={sx(_sx, {
+    <Row className={[className, isExpanded ? sx.classes.expanded : ''].filter(x => x).join(' ')} sx={sx(_sx, {
       width: '0%',
       minWidth: '50px',
       transition: '300ms',
-      [sx.cls(cls.expanded)]: {
+      [sx.cls(sx.classes.expanded)]: {
         width: '100% !important'
       },
-      [sx._cls(cls.expander_container)]: {
+      [sx._cls(sx.classes.expander_container)]: {
         width: '0%',
         overflow: 'hidden',
         transition: '300ms ease-in',
         ...(sx_container as any),
-        [sx.cls(cls.expanded)]: {
+        [sx.cls(sx.classes.expanded)]: {
           width: '100% !important',
           ...(sx_expanded as any)
         }
@@ -67,7 +69,7 @@ function Expander(props: ExpanderProps) {
           <Icon {...rest} button={{ onClick: () => setIsExpanded(true), color: 'primary', ...(typeof trigger.button === "boolean" ? {} : trigger.button) }} />
         }
       })()}
-      <Box className={cls.expander_container + (isExpanded ? ` ${cls.expanded}` : '')}>
+      <Box className={sx.classes.expander_container + (isExpanded ? ` ${sx.classes.expanded}` : '')}>
         {children}
       </Box>
     </Row>

@@ -1,6 +1,8 @@
 import { CircularProgress, CircularProgressProps } from "@mui/material";
 import Col from "./Flex/Col";
-import sx from "./sx";
+import {createSx} from "./sx";
+
+const sx = createSx();
 
 export default function Spinner({fillContainer, ...props}:Omit<CircularProgressProps, "size"> & {fillContainer?:boolean, size?:{x?:number, y?:number}}){
   const {sx:_sx, size, ...rest} = props;

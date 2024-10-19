@@ -3,7 +3,7 @@ import Col from "../Flex/Col"
 import { type FormProps, CustomFormInput, TextFormInput, FormInputGroup, FormResult, isCustomInput, isFormInput, isFormInputRecord } from "./types"
 import { TextField } from "@mui/material";
 import Row from "../Flex/Row";
-import sx from "../sx";
+import {createSx} from "../sx";
 import { defaultValidate, deriveInitialFormInputGroupResult, validateForm, textInput, customInput, form, validationModifier } from "./utils";
 import Button from "../Button";
 export * from './helpers';
@@ -13,6 +13,8 @@ export {
   form, 
   validationModifier
 }
+
+const sx = createSx({});
 
 type InputPropsExtension<T> = { setValue: (value: T) => T; isValidate: boolean };
 
