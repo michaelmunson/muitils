@@ -1,8 +1,11 @@
-import { CircularProgressProps } from "@mui/material";
-export default function Spinner({ fillContainer, ...props }: Omit<CircularProgressProps, "size"> & {
+import { CircularProgressProps } from '@mui/material';
+type SpinnerProps = Omit<CircularProgressProps, "size"> & {
     fillContainer?: boolean;
     size?: {
         x?: number;
         y?: number;
     };
-}): import("react/jsx-runtime").JSX.Element;
+};
+declare function Spinner({ fillContainer, ...props }: SpinnerProps): import("react/jsx-runtime").JSX.Element;
+export { type SpinnerProps, Spinner };
+export default Spinner;

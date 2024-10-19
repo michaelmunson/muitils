@@ -1,7 +1,13 @@
 import * as MuiIcons from "@mui/icons-material"
 import { IconButton, IconButtonProps, SvgIconProps } from "@mui/material"
 
-function Icon(props: Icon.Props) : JSX.Element {
+type IconName = keyof typeof MuiIcons;
+type IconProps = SvgIconProps & { 
+    name: IconName;
+    button?:boolean | IconButtonProps
+}
+
+function Icon(props: IconProps) : JSX.Element {
     const { name, button, ...rest } = props;
     const i = MuiIcons[name] as any;
 
@@ -19,12 +25,10 @@ function Icon(props: Icon.Props) : JSX.Element {
     )
 }
 
-namespace Icon {
-    export type IconName = keyof typeof MuiIcons
-    export type Props = SvgIconProps & { 
-        name: IconName;
-        button?:boolean | IconButtonProps
-    }
+export {
+    type IconName,
+    type IconProps,
+    Icon
 }
 
 export default Icon

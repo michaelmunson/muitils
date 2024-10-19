@@ -1,5 +1,5 @@
-import { type StackProps } from "@mui/material";
-import { CSSProperties } from "react";
+import { StackProps } from '@mui/material';
+import { CSSProperties } from 'react';
 export type CSSDirection = Exclude<Exclude<CSSProperties['flexDirection'], undefined>, "-moz-initial" | "inherit" | "initial" | "revert" | "revert-layer" | "unset">;
 export type Dimension = 'x' | 'y';
 export type LayoutDimension = Dimension | Dimension[];

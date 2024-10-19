@@ -12,12 +12,12 @@ const DateInputSx = sx({
 })
 
 
-export type DateInputProps = DatePickerProps<any> & {
+type DateInputProps = DatePickerProps<any> & {
   value?: string | number | Date | dayjs.Dayjs
 };
 
 
-export function DateInput(props: DateInputProps) {
+function DateInput(props: DateInputProps) {
   const { value, sx:_sx, ...rest } = props;
   const dayjsValue:dayjs.Dayjs = (['string','number'].includes(typeof value) || value instanceof Date) ? dayjs(value) : value;
 
@@ -30,3 +30,10 @@ export function DateInput(props: DateInputProps) {
     </LocalizationProvider>
   )
 }
+
+export {
+  type DateInputProps,
+  DateInput
+}
+
+export default DateInput;

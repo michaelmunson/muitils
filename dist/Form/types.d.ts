@@ -1,5 +1,5 @@
-import { type TextFieldProps } from "@mui/material";
-import { type ColProps } from "../Flex";
+import { TextFieldProps } from '@mui/material';
+import { ColProps } from '../Flex';
 export type InputExtension<T> = {
     value: T;
     errorText?: string;

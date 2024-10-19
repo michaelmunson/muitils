@@ -1,3 +1,4 @@
-import { ColProps } from "./types";
-export { type ColProps };
-export default function Col(props: Omit<ColProps, "row">): import("react/jsx-runtime").JSX.Element;
+import { ColProps } from './types';
+declare function Col(props: Omit<ColProps, "row">): import("react/jsx-runtime").JSX.Element;
+export { type ColProps, Col };
+export default Col;

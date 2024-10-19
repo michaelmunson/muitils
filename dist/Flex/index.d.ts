@@ -1,3 +1,6 @@
-import { FlexProps } from "./types";
+import { Flex } from './Flex';
 export * from './types';
-export default function Flex(props: FlexProps): import("react/jsx-runtime").JSX.Element;
+export * from './Flex';
+export * from './Col';
+export * from './Row';
+export default Flex;

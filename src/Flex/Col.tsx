@@ -1,10 +1,13 @@
 import { ColProps } from "./types";
-import Flex from ".";
+import {Flex} from "./Flex";
 
-export {
-  type ColProps
-}
-
-export default function Col(props:Omit<ColProps, "row">){
+function Col(props:Omit<ColProps, "row">){
   return <Flex col {...props}/>
 }
+
+export {
+  type ColProps,
+  Col
+}
+
+export default Col;

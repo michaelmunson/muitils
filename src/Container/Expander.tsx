@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Box, SxProps } from '@mui/material';
 import Row, { RowProps } from '../Flex/Row';
-import Icon from '../Icon';
+import Icon, {IconName, IconProps} from '../Icon';
 import {createSx} from '../sx';
 
 const sx = createSx({
   classes: ['expander_container', 'expanded'] as const,
 })
 
-export type ExpanderProps = Omit<RowProps, "onChange"> & {
-  trigger?: Icon.IconName | Icon.Props;
+type ExpanderProps = Omit<RowProps, "onChange"> & {
+  trigger?: IconName | IconProps;
   expanded?: boolean;
   sx_container?: SxProps;
   sx_expanded?: SxProps;
@@ -102,5 +102,8 @@ namespace Expander {
   }
 }
 
-export default Expander;
+export {
+  type ExpanderProps,
+  Expander
+}
 

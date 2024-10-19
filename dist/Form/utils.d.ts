@@ -1,4 +1,4 @@
-import { FormInputRecord, FormInputRecordResult, FormInputGroup, FormResult, TextFormInput, CustomFormInput } from "./types";
+import { FormInputRecord, FormInputRecordResult, FormInputGroup, FormResult, TextFormInput, CustomFormInput } from './types';
 export declare function deriveInitialFormInputGroupResult<T extends FormInputGroup>(group: T): FormResult<T>;
 export declare function getValueFromKeys<T>(keys: string[], result: FormResult<T>): any;
 export declare function defaultValidate(value: any): boolean;

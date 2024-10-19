@@ -1,11 +1,10 @@
+import { IconButtonProps, SvgIconProps } from '@mui/material';
 import * as MuiIcons from "@mui/icons-material";
-import { IconButtonProps, SvgIconProps } from "@mui/material";
-declare function Icon(props: Icon.Props): JSX.Element;
-declare namespace Icon {
-    type IconName = keyof typeof MuiIcons;
-    type Props = SvgIconProps & {
-        name: IconName;
-        button?: boolean | IconButtonProps;
-    };
-}
+type IconName = keyof typeof MuiIcons;
+type IconProps = SvgIconProps & {
+    name: IconName;
+    button?: boolean | IconButtonProps;
+};
+declare function Icon(props: IconProps): JSX.Element;
+export { type IconName, type IconProps, Icon };
 export default Icon;

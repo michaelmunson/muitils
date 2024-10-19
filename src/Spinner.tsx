@@ -4,7 +4,9 @@ import {createSx} from "./sx";
 
 const sx = createSx();
 
-export default function Spinner({fillContainer, ...props}:Omit<CircularProgressProps, "size"> & {fillContainer?:boolean, size?:{x?:number, y?:number}}){
+type SpinnerProps = Omit<CircularProgressProps, "size"> & {fillContainer?:boolean, size?:{x?:number, y?:number}}
+
+function Spinner({fillContainer, ...props}:SpinnerProps){
   const {sx:_sx, size, ...rest} = props;
 
   const Sx = sx(_sx, {width: size?.x ? (`${size.x}px !important`) : 'initial'}, {height: size?.y ? (`${size.y}px !important`) : 'initial'})
@@ -18,3 +20,10 @@ export default function Spinner({fillContainer, ...props}:Omit<CircularProgressP
     </Col>
   )
 }
+
+export {
+  type SpinnerProps,
+  Spinner
+}
+
+export default Spinner;

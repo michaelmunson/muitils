@@ -1,8 +1,8 @@
 import { SxProps } from '@mui/material';
 import { RowProps } from '../Flex/Row';
-import Icon from '../Icon';
-export type ExpanderProps = Omit<RowProps, "onChange"> & {
-    trigger?: Icon.IconName | Icon.Props;
+import { IconName, IconProps } from '../Icon';
+type ExpanderProps = Omit<RowProps, "onChange"> & {
+    trigger?: IconName | IconProps;
     expanded?: boolean;
     sx_container?: SxProps;
     sx_expanded?: SxProps;
@@ -28,4 +28,4 @@ declare namespace Expander {
     export function Item(props: ExpanderProps): import("react/jsx-runtime").JSX.Element;
     export {};
 }
-export default Expander;
+export { type ExpanderProps, Expander };

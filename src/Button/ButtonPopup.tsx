@@ -1,12 +1,12 @@
 import * as React from 'react';
 import MuiMenu, { MenuProps as MuiMenuProps } from '@mui/material/Menu';
-import Button, { ButtonProps } from '.';
+import { Button, ButtonProps } from './Button';
 
-export type ButtonPopupProps = Omit<ButtonProps, "onClick"> & {
+type ButtonPopupProps = Omit<ButtonProps, "onClick"> & {
   Menu?: Omit<MuiMenuProps, "children" | "onClose">
 }
 
-export default function ButtonPopup(props: ButtonPopupProps) {
+function ButtonPopup(props: ButtonPopupProps) {
   const { children, Menu, ...rest } = props;
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -44,3 +44,10 @@ export default function ButtonPopup(props: ButtonPopupProps) {
     </div>
   );
 }
+
+export {
+  type ButtonPopupProps,
+  ButtonPopup
+}
+
+export default ButtonPopup;

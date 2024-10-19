@@ -8,8 +8,6 @@ const DEFAULT_CONFIG: SxConfig = {
 
 /**@_TYPES */
 type CombineArrays<T extends readonly any[], U extends readonly any[]> = readonly [...T, ...U];
-
-
 const letters = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const cssOperator = <const>['&', ' ', '+', '>', ',', '*', '=', '[', ']'];
 type ElementSelector = keyof HTMLElementTagNameMap | `${string}-${string}`;

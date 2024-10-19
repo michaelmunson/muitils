@@ -1,24 +1,17 @@
 {
   "name": "muitils",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A library of useful MUI component wrappers and utilities.",
-  "main": "dist/index.js",
   "type": "module",
-  "module": "dist/index.js",
-  "exports": {
-    ".": "./dist/index.js",
-    "./Button": "./dist/Button/index.js",
-    "./Container": "./dist/Container/index.js",
-    "./Field": "./dist/Field/index.js",
-    "./Flex": "./dist/Flex/index.js",
-    "./Form": "./dist/Form.js",
-    "./Input": "./dist/Input.js",
-    "./sx": "./dist/sx.js",
-    "./Icon": "./dist/Icon.js",
-    "./Spinner": "./dist/Spinner.js"
-  },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && tsc && vite build",
     "create-docs": "typedoc --out ./docs ./src/index.ts",
     "deploy": "npm run build && npm publish"
   },

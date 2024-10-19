@@ -1,4 +1,4 @@
-import { SxProps as MuiSxProps, Theme as MuiTheme } from "@mui/material";
+import { SxProps as MuiSxProps, Theme as MuiTheme } from '@mui/material';
 /**@_TYPES */
 type CombineArrays<T extends readonly any[], U extends readonly any[]> = readonly [...T, ...U];
 declare const cssOperator: readonly ["&", " ", "+", ">", ",", "*", "=", "[", "]"];
