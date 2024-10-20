@@ -1,6 +1,6 @@
 {
   "name": "muitils",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "description": "A library of useful MUI component wrappers and utilities.",
   "main": "src/index.ts",
   "files": ["src/**/*"],
@@ -8,7 +8,6 @@
     "." : "./src/index.ts",
     "./Button" : "./src/Button/index.ts",
     "./Flex" : "./src/Flex/index.ts",
-    "./Form" : "./src/Form/index.ts",
     "./Icon" : "./src/Icon/index.ts",
     "./Input" : "./src/Input/index.ts",
     "./Spinner" : "./src/Spinner/index.ts",
