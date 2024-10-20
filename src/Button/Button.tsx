@@ -1,6 +1,5 @@
 import { Button as MuiButton, ButtonProps as MuiButtonProps, CircularProgress} from "@mui/material";
 import Icon, {IconProps, IconName} from "../Icon";
-import { ButtonPopup } from "./ButtonPopup";
 
 type ButtonProps = MuiButtonProps & {loading?:boolean, loadingText?: string, Icon?:IconProps | IconName}
 

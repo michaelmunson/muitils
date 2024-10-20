@@ -150,7 +150,7 @@ function createSxExtensions  <Config extends SxConfig>(config: Config): SxExtens
 
 
 /**@_EXPORT */
-export function createSx<Config extends SxConfigPart>(configuration: Config): Sx<SxConfigDefault<Config>> {
+export function createSx<Config extends SxConfigPart>(configuration: Config=({} as Config)): Sx<SxConfigDefault<Config>> {
   const config = createConfig(configuration);
   const sxFunction = createSxFunction(config);
   const sxExtensions = createSxExtensions(config);
@@ -171,3 +171,11 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart>(
     definitions
   }) as any
 }
+
+
+// const sx = createSx({
+//   classes: <const>['a','b'],
+//   definitions: {
+//     w100: {width:'100%'}
+//   }
+// });
