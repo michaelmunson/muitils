@@ -14,6 +14,4 @@ function Flex(props:FlexProps){
   )
 }
 
-export {Flex};
-
 export default Flex;

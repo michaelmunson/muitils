@@ -27,29 +27,9 @@ function Button(props:ButtonProps) {
   )
 }
 
-namespace Button {
-  export type Props = ButtonProps;
-  export const Popup = ButtonPopup
-}
-
 export {
   type ButtonProps,
   Button
 }
 
 export default Button;
-/* 
-import ButtonPopup from "./ButtonPopup";
-
-namespace Button {
-  export type Props = ButtonProps;
-  export const Popup = ButtonPopup;
-}
-
-export {
-  type ButtonProps,
-  ButtonPopup,
-  Button
-}
-
- */

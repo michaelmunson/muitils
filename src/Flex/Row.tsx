@@ -1,5 +1,5 @@
 import { RowProps } from "./types";
-import {Flex} from "./Flex";
+import Flex from "./Flex";
 
 function Row(props:Omit<RowProps, "row">){
   return <Flex row {...props}/>

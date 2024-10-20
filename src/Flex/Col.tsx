@@ -1,5 +1,5 @@
 import { ColProps } from "./types";
-import {Flex} from "./Flex";
+import Flex from "./Flex";
 
 function Col(props:Omit<ColProps, "row">){
   return <Flex col {...props}/>
@@ -7,7 +7,6 @@ function Col(props:Omit<ColProps, "row">){
 
 export {
   type ColProps,
-  Col
 }
 
 export default Col;

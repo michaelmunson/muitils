@@ -1,21 +1,6 @@
-import { Button } from "./Button";
+export {default as Button} from './Button'
+export {default as ButtonPopup} from './ButtonPopup';
 
-export * from './Button';
-export * from './ButtonPopup';
+import {default as Button} from './Button'
 
 export default Button;
-/* 
-import ButtonPopup from "./ButtonPopup";
-
-namespace Button {
-  export type Props = ButtonProps;
-  export const Popup = ButtonPopup;
-}
-
-export {
-  type ButtonProps,
-  ButtonPopup,
-  Button
-}
-
- */
