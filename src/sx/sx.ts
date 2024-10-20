@@ -44,7 +44,7 @@ type SxSelectorArray<Config extends SxConfig> = SxSelectorItem<Config>[];
 
 /*****@sx_component_types */
 type SxArgs<Config extends SxConfig> = (
-  (MuiSxProps | keyof Config['definitions'] | undefined)[]
+  (MuiSxProps<any> | keyof Config['definitions'] | undefined)[]
 )
 
 type SxFunction<Config extends SxConfig> = (
