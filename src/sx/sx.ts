@@ -1,4 +1,4 @@
-import { SxProps as MuiSxProps} from "@mui/material"
+import { SxProps as MuiSxProps } from "@mui/material"
 
 const DEFAULT_CONFIG: SxConfig = {
   classes: [] as const,
@@ -81,24 +81,28 @@ const isElementSelector = (selector: any): selector is ElementSelector => typeof
 // const isClassSelector = (selector: any): selector is ClassSelector => typeof selector === 'string' && selector.startsWith('.');
 
 /**@_UTILS */
-const createConfig = <Config extends SxConfigPart>(config:Config) : SxConfigDefault<Config> => ({ ...DEFAULT_CONFIG, ...config }) as any;
+const createConfig = <Config extends SxConfigPart>(config: Config): SxConfigDefault<Config> => ({ ...DEFAULT_CONFIG, ...config }) as any;
 
 function createSxFunction<Config extends SxConfig>(config: Config): SxFunction<Config> {
   const definitions: Config['definitions'] = config.definitions;
   return (...styles) => {
     const muisx: MuiSxProps = {};
-    for (const style of styles) {
-      if (!style) continue;
+    const assignStyle = (style: SxArgs<Config>[number]) => {
+      if (!style) return;
       if (isDefinition(config, style)) {
         Object.assign(muisx, definitions[style])
       }
+      else if (Array.isArray(style)) style.forEach(s => assignStyle(s));
       else if (typeof style === 'object') Object.assign(muisx, style);
+    }
+    for (const style of styles) {
+      assignStyle(style);
     }
     return muisx;
   }
 }
 
-function createSxExtensions  <Config extends SxConfig>(config: Config): SxExtensions<Config> {
+function createSxExtensions<Config extends SxConfig>(config: Config): SxExtensions<Config> {
   return <const>{
     classes: config.classes.reduce((p, c) => ({ ...p, [c]: c }), {}) as Readonly<{ [K in Config["classes"][number]]: K; }>,
     definitions: config.definitions,
@@ -151,7 +155,7 @@ function createSxExtensions  <Config extends SxConfig>(config: Config): SxExtens
 
 
 /**@_EXPORT */
-export function createSx<Config extends SxConfigPart>(configuration: Config=({} as Config)): Sx<SxConfigDefault<Config>> {
+export function createSx<Config extends SxConfigPart>(configuration: Config = ({} as Config)): Sx<SxConfigDefault<Config>> {
   const config = createConfig(configuration);
   const sxFunction = createSxFunction(config);
   const sxExtensions = createSxExtensions(config);
@@ -164,9 +168,9 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart>(
   config: ExtConfig
 ): SxExtendee extends Sx<infer Config> ? SxConfigMerge<Config, ExtConfig> : never {
   const SX = sx as Sx;
-  const CF = {...DEFAULT_CONFIG, ...config}
-  const classes:any = [SX.classes, CF.classes].flat();
-  const definitions:any = {...SX?.definitions, ...CF.definitions};
+  const CF = { ...DEFAULT_CONFIG, ...config }
+  const classes: any = [SX.classes, CF.classes].flat();
+  const definitions: any = { ...SX?.definitions, ...CF.definitions };
   return createSx({
     classes,
     definitions
