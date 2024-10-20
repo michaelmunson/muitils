@@ -17,6 +17,10 @@
   "scripts": {},
   "author": "Michael Munson",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michaelmunson/muitils"
+  },
   "dependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
