@@ -92,6 +92,7 @@ function createSxFunction<Config extends SxConfig>(config: Config): SxFunction<C
       if (isDefinition(config, style)) {
         Object.assign(muisx, definitions[style])
       }
+      else if (typeof style === 'object') Object.assign(muisx, style);
     }
     return muisx;
   }
