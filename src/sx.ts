@@ -1,9 +1,8 @@
-import { SxProps as MuiSxProps, Theme as MuiTheme } from "@mui/material"
+import { SxProps as MuiSxProps} from "@mui/material"
 
 const DEFAULT_CONFIG: SxConfig = {
   classes: [] as const,
   definitions: {},
-  theme: {},
 }
 
 /**@_TYPES */
@@ -20,24 +19,22 @@ type ClassListSelectors<T extends ClassList> = {
 };
 type ClassEnums<T extends ClassList> = Readonly<{ [K in T[number]]: K }>
 
-type DefinitionValue<Theme extends MuiTheme = any, Args extends any[] = any[]> = MuiSxProps<Theme> | ((...args: Args) => MuiSxProps<Theme>)
-type DefinitionRecord<Theme extends MuiTheme = any> = Readonly<Record<string, DefinitionValue<Theme>>>
+type DefinitionValue<Args extends any[] = any[]> = MuiSxProps | ((...args: Args) => MuiSxProps)
+type DefinitionRecord = Readonly<Record<string, DefinitionValue>>
 
 /*****@sx_config */
-type SxConfig<Theme extends MuiTheme = any> = {
+type SxConfig = {
   classes: ClassList;
-  definitions: DefinitionRecord<Theme>;
-  theme: Theme;
+  definitions: DefinitionRecord;
 }
-type SxConfigPart<Theme extends MuiTheme = any> = Partial<SxConfig<Theme>>
+type SxConfigPart = Partial<SxConfig>
 
-type SxConfigDefault<Config extends SxConfigPart<Theme>, Theme extends MuiTheme = any> = SxConfig<Theme> & Config;
+type SxConfigDefault<Config extends SxConfigPart> = SxConfig & Config;
 
-type SxConfigMerge<Config extends SxConfig<Theme>, ExtConfig extends SxConfigPart<Theme>, Theme extends MuiTheme = any> = (
+type SxConfigMerge<Config extends SxConfig, ExtConfig extends SxConfigPart> = (
   Sx<{
     classes: CombineArrays<Config['classes'], SxConfigDefault<ExtConfig>['classes']>;
     definitions: Config['definitions'] & SxConfigDefault<ExtConfig>['definitions'];
-    theme: Config['theme'];
   }>
 )
 
@@ -46,15 +43,15 @@ type SxSelectorItem<Config extends SxConfig> = (CSSOperator | ElementSelector | 
 type SxSelectorArray<Config extends SxConfig> = SxSelectorItem<Config>[];
 
 /*****@sx_component_types */
-type SxArgs<Config extends SxConfig<Theme>, Theme extends MuiTheme = any> = (
-  (MuiSxProps<Theme> | keyof Config['definitions'] | undefined)[]
+type SxArgs<Config extends SxConfig> = (
+  (MuiSxProps | keyof Config['definitions'] | undefined)[]
 )
 
-type SxFunction<Config extends SxConfig<Theme>, Theme extends MuiTheme = any> = (
-  (...styles: SxArgs<Config, Theme>) => MuiSxProps<Theme>
+type SxFunction<Config extends SxConfig> = (
+  (...styles: SxArgs<Config>) => MuiSxProps
 )
 
-type SxExtensions<Config extends SxConfig<Theme>, Theme extends MuiTheme = any> = {
+type SxExtensions<Config extends SxConfig> = {
   cls: (className: Config['classes'][number], ...classJoins: SxConfigClass<Config>[]) => `&.${string}`;
   _cls: (className: Config['classes'][number], ...classJoins: SxConfigClass<Config>[]) => `& .${string}`;
   el: (element: ElementSelector, ...elementAdditions: ElementSelector[]) => `& ${ElementSelector}${string}`;
@@ -64,31 +61,29 @@ type SxExtensions<Config extends SxConfig<Theme>, Theme extends MuiTheme = any> 
   _sel: (...selectors: SxSelectorArray<Config>) => `& ${string}`;
   classes: ClassEnums<Config['classes']>;
   definitions: Config['definitions'];
-  theme: Config['theme'];
-  colors: Config['theme']['palette'];
-  // '::extend': <ConfigPart extends SxConfigPart<Theme>>(configuration:ConfigPart) => SxConfigMerge<Config, ConfigPart, Theme>
+  // '::extend': <ConfigPart extends SxConfigPart>(configuration:ConfigPart) => SxConfigMerge<Config, ConfigPart>
 }
 
-type Sx<Config extends SxConfig<Theme> = any, Theme extends MuiTheme = any> = (
-  SxFunction<Config, Theme> & SxExtensions<Config, Theme>
+type Sx<Config extends SxConfig = any> = (
+  SxFunction<Config> & SxExtensions<Config>
 )
 
 const isDefinition = <Config extends SxConfig>(config: Config, str: any): str is keyof Config['definitions'] => (
   typeof str === "string" && str in config['definitions']
 );
 const isElementSelector = (selector: any): selector is ElementSelector => typeof selector === 'string' && letters.includes(selector[0]);
-// const isClass = <Config extends SxConfig, Theme extends MuiTheme>(config: Config, cls: any): cls is Config['classes'][number] => (
+// const isClass = <Config extends SxConfig>(config: Config, cls: any): cls is Config['classes'][number] => (
 //   typeof cls === "string" && config.classes.includes(cls)
 // );
 // const isClassSelector = (selector: any): selector is ClassSelector => typeof selector === 'string' && selector.startsWith('.');
 
 /**@_UTILS */
-const createConfig = <Theme extends MuiTheme = any>(config:SxConfigPart<Theme>) : SxConfig<Theme> => ({ ...DEFAULT_CONFIG, ...config });
+const createConfig = (config:SxConfigPart) : SxConfig => ({ ...DEFAULT_CONFIG, ...config });
 
-function createSxFunction<Config extends SxConfig<Theme>, Theme extends MuiTheme = any>(config: Config): SxFunction<Config, Theme> {
+function createSxFunction<Config extends SxConfig>(config: Config): SxFunction<Config> {
   const definitions: Config['definitions'] = config.definitions;
   return (...styles) => {
-    const muisx: MuiSxProps<Theme> = {};
+    const muisx: MuiSxProps = {};
     for (const style of styles) {
       if (!style) continue;
       if (isDefinition(config, style)) {
@@ -99,12 +94,10 @@ function createSxFunction<Config extends SxConfig<Theme>, Theme extends MuiTheme
   }
 }
 
-function createSxExtensions  <Config extends SxConfig<Theme>, Theme extends MuiTheme = any>(config: Config): SxExtensions<Config, Theme> {
+function createSxExtensions  <Config extends SxConfig>(config: Config): SxExtensions<Config> {
   return <const>{
     classes: config.classes.reduce((p, c) => ({ ...p, [c]: c }), {}) as Readonly<{ [K in Config["classes"][number]]: K; }>,
     definitions: config.definitions,
-    theme: config.theme,
-    colors: config.theme.palette,
     cls(...className) {
       return `&.${className.join('.')}`;
     },
@@ -154,15 +147,15 @@ function createSxExtensions  <Config extends SxConfig<Theme>, Theme extends MuiT
 
 
 /**@_EXPORT */
-export function createSx<Config extends SxConfigPart<Theme>, Theme extends MuiTheme = any>(configuration: Config=({} as Config)): Sx<SxConfigDefault<Config, Theme>, Theme> {
+export function createSx<Config extends SxConfigPart>(configuration: Config=({} as Config)): Sx<SxConfigDefault<Config>> {
   const config = createConfig(configuration);
   const sxFunction = createSxFunction(config);
   const sxExtensions = createSxExtensions(config);
   Object.assign(sxFunction, sxExtensions);
-  return sxFunction as Sx<SxConfigDefault<Config, Theme>, Theme>;
+  return sxFunction as Sx<SxConfigDefault<Config>>;
 }
 
-export function extendSx<SxExtendee, ExtConfig extends SxConfigPart<Theme>, Theme extends MuiTheme>(
+export function extendSx<SxExtendee, ExtConfig extends SxConfigPart>(
   sx: SxExtendee,
   config: ExtConfig
 ): SxExtendee extends Sx<infer Config> ? SxConfigMerge<Config, ExtConfig> : never {
@@ -170,10 +163,9 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart<Theme>, Them
   const CF = {...DEFAULT_CONFIG, ...config}
   const classes:any = [SX.classes, CF.classes].flat();
   const definitions:any = {...SX?.definitions, ...CF.definitions};
-  const theme:any = {...SX?.theme, ...CF.theme}
   return createSx({
     classes,
-    definitions,
-    theme,
+    definitions
   }) as any
 }
+
