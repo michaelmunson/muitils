@@ -7,18 +7,39 @@ const DEFAULT_CONFIG: SxConfig = {
 
 /**@_TYPES */
 type CombineArrays<T extends readonly any[], U extends readonly any[]> = readonly [...T, ...U];
-const letters = 'abcdefghijklmnopqrstuvwxyz'.split('')
-const cssOperator = <const>['&', ' ', '+', '>', ',', '*', '=', '[', ']'];
-type ElementSelector = keyof HTMLElementTagNameMap | `${string}-${string}`;
-// type ClassSelector = `.${string}`;
+// const letters = 'abcdefghijklmnopqrstuvwxyz'.split('')
+const cssOperator = <const>['+', '>', ',', '&', '& >', ' '];
 type CSSOperator = (typeof cssOperator)[number];
-
+type OperatorSelectors<O extends CSSOperator | `${CSSOperator} `, T extends readonly any[]> = {
+  [K in keyof T] : `${O}${T[K]}`
+}
+type Elements = readonly (keyof HTMLElementTagNameMap)[];
 type ClassList = readonly string[];
 type ClassListSelectors<T extends ClassList> = {
-  [K in keyof T]: `.${T[K]}`;
-};
-type ClassEnums<T extends ClassList> = Readonly<{ [K in T[number]]: K }>
+  [K in keyof T]: `.${T[K]}`
+}
+type ClassListFirstSelectors<T extends ClassList> = (
+  OperatorSelectors<'&', ClassListSelectors<T>> |
+  OperatorSelectors<'& ', ClassListSelectors<T>>|
+  OperatorSelectors<'& > ', ClassListSelectors<T>>
+)
+type ClassListRestSelectors<T extends ClassList> = (
+  ClassListSelectors<T> |
+  OperatorSelectors<' ', ClassListSelectors<T>> |
+  OperatorSelectors<'+ ', ClassListSelectors<T>> |
+  OperatorSelectors<'> ', ClassListSelectors<T>>|
+  OperatorSelectors<', ', ClassListSelectors<T>> 
+)
 
+type ElementFirstSelector = OperatorSelectors<'& ', Elements>[number]
+
+type ElementRestSelector = (
+  OperatorSelectors<'+ ', (keyof HTMLElementTagNameMap)[]> |
+  OperatorSelectors<'> ', (keyof HTMLElementTagNameMap)[]> |
+  OperatorSelectors<', ', (keyof HTMLElementTagNameMap)[]> 
+)[number]
+
+type ClassEnums<T extends ClassList> = Readonly<{ [K in T[number]]: K }>
 type DefinitionValue<Args extends any[] = any[]> = MuiSxProps | ((...args: Args) => MuiSxProps)
 type DefinitionRecord = Readonly<Record<string, DefinitionValue>>
 
@@ -41,12 +62,13 @@ type SxConfigMerge<Config extends SxConfig, ExtConfig extends SxConfigPart> = (
 )
 
 type SxConfigClass<Config extends SxConfig> = Config['classes'][number];
-type SxSelectorItem<Config extends SxConfig> = (CSSOperator | ElementSelector | (ClassListSelectors<Config['classes']>)[number])
-type SxSelectorArray<Config extends SxConfig> = SxSelectorItem<Config>[];
+type SxFirstSelector<Config extends SxConfig> = ElementFirstSelector | (ClassListFirstSelectors<Config['classes']>)[number]
+type SxRestSelector<Config extends SxConfig> = (ElementRestSelector | (ClassListRestSelectors<Config['classes']>)[number])
+type SxSelectorArray<Config extends SxConfig> = [SxFirstSelector<Config>, ...SxRestSelector<Config>[]]
 
 /*****@sx_component_types */
 type SxArgs<Config extends SxConfig> = (
-  (MuiSxProps<any> | keyof Config['definitions'] | undefined)[]
+  (MuiSxProps<any> | MuiSxProps<any>[] | keyof Config['definitions'] | undefined)[]
 )
 
 type SxFunction<Config extends SxConfig> = (
@@ -56,12 +78,12 @@ type SxFunction<Config extends SxConfig> = (
 type SxExtensions<Config extends SxConfig> = {
   cls: (className: Config['classes'][number], ...classJoins: SxConfigClass<Config>[]) => `&.${string}`;
   _cls: (className: Config['classes'][number], ...classJoins: SxConfigClass<Config>[]) => `& .${string}`;
-  el: (element: ElementSelector, ...elementAdditions: ElementSelector[]) => `& ${ElementSelector}${string}`;
+  el: (element: ElementFirstSelector, ...elementAdditions: ElementRestSelector[]) => `& ${keyof HTMLElementTagNameMap}${string}`;
   hov: (modifier?: string) => `&${string}:hover`;
-  // def: <T extends keyof Config['definitions']>(definition:T) => Config['definitions'][T];
   def: (definition: keyof Config['definitions']) => Config['definitions'][typeof definition]
-  sel: (...selectors: SxSelectorArray<Config>) => string;
-  _sel: (...selectors: SxSelectorArray<Config>) => `& ${string}`;
+  // sel: (...selectors: SxSelectorArray<Config>) => string;
+  // _sel: (...selectors: SxSelectorArray<Config>) => `& ${string}`;
+  $: (...selectors:SxSelectorArray<Config>) => string;
   classes: ClassEnums<Config['classes']>;
   definitions: Config['definitions'];
   // '::extend': <ConfigPart extends SxConfigPart>(configuration:ConfigPart) => SxConfigMerge<Config, ConfigPart>
@@ -74,7 +96,7 @@ type Sx<Config extends SxConfig = any> = (
 const isDefinition = <Config extends SxConfig>(config: Config, str: any): str is keyof Config['definitions'] => (
   typeof str === "string" && str in config['definitions']
 );
-const isElementSelector = (selector: any): selector is ElementSelector => typeof selector === 'string' && letters.includes(selector[0]);
+// const isElementSelector = (selector: any): selector is ElementRestSelector => typeof selector === 'string' && letters.includes(selector[0]);
 // const isClass = <Config extends SxConfig>(config: Config, cls: any): cls is Config['classes'][number] => (
 //   typeof cls === "string" && config.classes.includes(cls)
 // );
@@ -113,7 +135,7 @@ function createSxExtensions<Config extends SxConfig>(config: Config): SxExtensio
       return `& .${className.join(' .')}`;
     },
     el(...elements) {
-      return `& ${elements.join(',') as `${ElementSelector}${string}`}`
+      return `& ${elements.join('') as `${keyof HTMLElementTagNameMap}${string}`}`
     },
     hov(modifier = "") {
       return `&${modifier}:hover`
@@ -126,7 +148,11 @@ function createSxExtensions<Config extends SxConfig>(config: Config): SxExtensio
       }
       return definitions[definition];
     },
-    sel(...selectors) {
+    $(...selectors) {
+      const [firstSelector, ...nextSelectors] = selectors;
+      return `${firstSelector} ${nextSelectors.join('')}`
+    },
+    /* sel(...selectors) {
       const newSelectorsArray: string[] = [];
       let lastSelector: string | null = null;
       for (const rawSelector of selectors) {
@@ -149,7 +175,8 @@ function createSxExtensions<Config extends SxConfig>(config: Config): SxExtensio
     },
     _sel(...selectors) {
       return `& ${this.sel(...selectors)}`
-    }
+    }, */
+    
   }
 }
 
@@ -179,8 +206,10 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart>(
 
 
 // const sx = createSx({
-//   classes: <const>['a','b'],
+//   classes: <const>['asd','b'],
 //   definitions: {
 //     w100: {width:'100%'}
 //   }
 // });
+
+// sx.$()
