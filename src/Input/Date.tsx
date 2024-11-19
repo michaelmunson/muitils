@@ -16,7 +16,6 @@ type DateInputProps = DatePickerProps<any> & {
   value?: string | number | Date | dayjs.Dayjs
 };
 
-
 function DateInput(props: DateInputProps) {
   const { value, sx:_sx, ...rest } = props;
   const dayjsValue:dayjs.Dayjs = (['string','number'].includes(typeof value) || value instanceof Date) ? dayjs(value) : value;
@@ -26,7 +25,7 @@ function DateInput(props: DateInputProps) {
       <DatePicker
         sx={sx(DateInputSx, _sx)}
         value={dayjsValue}
-        {...rest} />
+        {...rest}/>
     </LocalizationProvider>
   )
 }
