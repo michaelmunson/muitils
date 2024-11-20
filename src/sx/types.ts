@@ -42,9 +42,9 @@ type ClassEnums<T extends ClassList> = Readonly<{ [K in T[number]]: K }>
 type DefinitionValue<Args extends any[] = any[]> = MuiSxProps | ((...args: Args) => MuiSxProps)
 type DefinitionRecord = Readonly<Record<string, DefinitionValue>>
 
-type SxConfig = {
-  classes: ClassList;
-  definitions: DefinitionRecord;
+type SxConfig<S extends SxConfigPart = {}> = {
+  classes: S['classes'] extends ClassList ? S['classes'] : ClassList;
+  definitions: S['definitions'] extends DefinitionRecord ? S['definitions'] : DefinitionRecord;
 }
 type SxConfigPart = Partial<SxConfig>
 
@@ -63,9 +63,18 @@ type SxConfigClass<Config extends SxConfig> = Config['classes'][number];
 type SxFirstSelector<Config extends SxConfig> = ElementFirstSelector | (ClassListFirstSelectors<Config['classes']>)[number]
 type SxRestSelector<Config extends SxConfig> = (ElementRestSelector | (ClassListRestSelectors<Config['classes']>)[number])
 type SxSelectorArray<Config extends SxConfig> = [SxFirstSelector<Config>, ...SxRestSelector<Config>[]]
+type SxSelectorRecord<Config extends SxConfig> = {
+  [K in SxSelectorArray<Config>[number]]: (MuiSxProps<any> | SxSelectorRecord<Config>)
+}
 
 type SxArgs<Config extends SxConfig> = (
-  (MuiSxProps<any> | MuiSxProps<any>[] | keyof Config['definitions'] | undefined)[]
+  (
+    MuiSxProps<any> | 
+    MuiSxProps<any>[] | 
+    keyof Config['definitions'] | 
+    SxSelectorRecord<Config> |
+    undefined
+  )[]
 )
 
 type SxFunction<Config extends SxConfig> = (
@@ -91,10 +100,13 @@ type SxExtensions<Config extends SxConfig> = {
   definitions: Config['definitions'];
 }
 
+
 type Sx<Config extends SxConfig = any> = (
   SxFunction<Config> & SxExtensions<Config>
 )
 
+type ExtractSxConfig<S> = S extends Sx<infer Config> ? Config : never;
+type ExtractSxRecord<S> = S extends Sx<infer Config> ? (SxSelectorRecord<Config> & MuiSxProps) : MuiSxProps;
 
 export type {
   Sx,
@@ -106,4 +118,6 @@ export type {
   SxExtensions,
   SxArgs,
   MuiSxProps,
+  ExtractSxConfig,
+  ExtractSxRecord
 }

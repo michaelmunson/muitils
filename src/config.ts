@@ -1,27 +1,33 @@
-import {formSx} from './Form/config';
-import { MuiSxProps, Sx, SxConfigDefault} from './sx/types';
+import formSx from './Form/sx';
+import tableSx from './Table/sx';
+import { ExtractSxRecord} from './sx/types';
 
 type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
 
-type ConfigSx<S extends Record<string, string>> = {
-  classes: Record<keyof S, MuiSxProps>,
-  inline: MuiSxProps
-}
+type ConfigSx<S> = ExtractSxRecord<S>;
 
 type ConfigTransform = (component:JSX.Element) => JSX.Element
 
-const createConfig = <S extends Record<string, string>>() => ({
-  sx:<ConfigSx<S>>{classes: {},inline: {}},
+const createConfig = <S>() => ({
+  sx:<ConfigSx<S>>{},
   transform:<ConfigTransform>((component:JSX.Element) : JSX.Element => component)
 })
 
 const CONFIG = <const>{
-  Form: createConfig<typeof formSx.classes>(),
+  Form: createConfig<typeof formSx>(),
+  Table: createConfig<typeof tableSx>(),
 }
 
+/**
+ * @description Returns the current configuration
+ */
 export const getConfig = () => CONFIG;
+
+/**
+ * @description Sets the configuration
+ */
 export const setConfig = (value: DeepPartial<typeof CONFIG>) => {
   function deepMerge<T extends object>(base: T, value: DeepPartial<T>): T {
       const result = { ...base } as T;
@@ -40,4 +46,3 @@ export const setConfig = (value: DeepPartial<typeof CONFIG>) => {
 
   Object.assign(CONFIG, deepMerge(CONFIG, value));
 }
-

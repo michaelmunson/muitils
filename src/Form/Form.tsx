@@ -7,17 +7,9 @@ import { defaultValidate, deriveInitialFormInputGroupResult, isCustomInput, isFo
 import Button from "../Button";
 import { form, isDateInput, isTextInput } from "./inputs/utils";
 import { text, number, custom, date, autocomplete, select } from "./inputs";
-import formSx from "./config";
+import formSx, { styles } from "./sx";
 import { getConfig } from "../config";
 
-const sx = () => formSx({
-  ...getConfig().Form.sx.inline,
-  '& .form_input_row' : {
-    width: '100%',
-    gap: 2,
-    ...getConfig().Form.sx.classes['form_input_row']
-  }
-})
 
 /**
  * @description A component that creates a form from a [FormInputGroup](./types.ts#FormInputGroup)
@@ -121,7 +113,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
   }, [isValidate]);
 
   return getConfig().Form.transform(
-    <Col gap={3} sx={formSx(sx(), _sx)} {...rest}>
+    <Col gap={3} sx={formSx(styles(), _sx)} {...rest}>
       {Object.entries(inputs).map((entry, index) => {
         const [key, value] = entry;
         if (isFormInput(value) || isCustomInput(value)) return (

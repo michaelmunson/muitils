@@ -1,4 +1,5 @@
 import { MuiSxProps, SxConfig, SxConfigPart, SxConfigDefault, SxConfigMerge, SxFunction, SxExtensions, SxArgs, Sx } from "./types";
+import { deepMerge, shallowMerge } from "../utils";
 
 const DEFAULT_CONFIG: SxConfig = {
   classes: [] as const,
@@ -37,7 +38,7 @@ function createSxFunction<Config extends SxConfig>(config: Config): SxFunction<C
   }
 }
 
-function createSxExtensions<Config extends SxConfig>(config: Config): SxExtensions<Config> {
+function createSxExtensions<Config extends SxConfig<{}>>(config: Config): SxExtensions<Config> {
   return <const>{
     classes: config.classes.reduce((p, c) => ({ ...p, [c]: c }), {}) as Readonly<{ [K in Config["classes"][number]]: K; }>,
     definitions: config.definitions,
@@ -67,7 +68,7 @@ function createSxExtensions<Config extends SxConfig>(config: Config): SxExtensio
     },
     $(...selectors) {
       const [firstSelector, ...nextSelectors] = selectors;
-      return `${firstSelector} ${nextSelectors.join('')}`
+      return `${firstSelector} ${nextSelectors.join('')}`.trim();
     },
   }
 }
@@ -101,12 +102,12 @@ function createSxExtensions<Config extends SxConfig>(config: Config): SxExtensio
  * const box = <Box sx={boxSx} />
  * ```
  */
-export function createSx<Config extends SxConfigPart>(configuration: Config = ({} as Config)): Sx<SxConfigDefault<Config>> {
+export function createSx<Config extends SxConfigPart>(configuration: Config = ({} as Config)): Sx<SxConfig<Config>> {
   const config = createConfig(configuration);
   const sxFunction = createSxFunction(config);
   const sxExtensions = createSxExtensions(config);
   Object.assign(sxFunction, sxExtensions);
-  return sxFunction as Sx<SxConfigDefault<Config>>;
+  return sxFunction as Sx<SxConfig<Config>>; 
 }
 
 /**
@@ -166,20 +167,27 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart>(
   }) as any
 }
 
+/**
+ * @description Merges an array of SxProps
+ * @importing
+ * ```tsx
+ * import {mergeSx} from 'muitils'
+ * // or
+ * import {mergeSx} from 'muitils/sx'
+ * ```
+ * <br><hr><br>
+ * @example
+ * ```tsx
+ * const merged = mergeSx([sx1,sx2], {merge: 'deep'})
+ * ```
+ * @example
+ * ```tsx
+ * const merged = mergeSx([sx1,sx2,sx3,sx4], {merge: 'shallow'})
+ * ```
+ */
 
-/*  
-const sx = createSx({
-  classes: <const>['asd','b'],
-  definitions: <const>{
-    w100: {width:'100%'},
-    h100: {height:'100%'}
-  }
-});
+export function mergeSx(sx: MuiSxProps[], config:{merge: 'deep' | 'shallow'} = {merge: 'deep'}) : Exclude<MuiSxProps, undefined | null> {
+  return sx.reduce((p, c) => config.merge === 'deep' ? deepMerge(p, c) : shallowMerge(p, c), {}) as any;
+}
 
-const x = sx.def('w100', 'h100');
-
-console.log(x);
-
-x.width
-x.height 
-*/
+export type * from './types';
