@@ -25,6 +25,7 @@ export default function AutocompleteInput({value, setValue, isValid, errorText, 
       renderInput={(params: any) => (
         <TextField {...params} label={label} {...validationModifier(isValid, errorText ?? "")} />
       )}
+      {...props}
     />
   )
 }
