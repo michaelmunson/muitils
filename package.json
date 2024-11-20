@@ -1,6 +1,6 @@
 {
   "name": "muitils",
-  "version": "2.21.0",
+  "version": "2.22.0",
   "description": "A library of useful MUI component wrappers and utilities.",
   "main": "src/index.ts",
   "files": [
@@ -18,7 +18,7 @@
     "./sx": "./src/sx/index.ts"
   },
   "scripts": {
-    "create-docs": "typedoc --out ./docs ./src/index.ts",
+    "create-docs": "typedoc --out ./docs ./src/**/index.ts ./src/Muitils.ts",
     "test": "jest"
   },
   "author": "Michael Munson",
