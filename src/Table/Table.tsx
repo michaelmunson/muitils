@@ -32,7 +32,7 @@ const classes = tableSx.classes;
 */
 export default function Table(props: TableProps) {
   const skeletons = props.head.map(() => ({ value: <Skeleton width={'90%'} height={'20px'} {...props.loadingBehavior?.SkeletonProps} /> }));
-  const { head, data=Array(props.loadingBehavior?.rows ?? 5).fill(skeletons) as TableCellInput[][], TableProps, TableHeadProps, TableBodyProps, TableRowProps, TableCellProps, sx, ...rest } = props;
+  const { head, body, TableProps, TableHeadProps, TableBodyProps, TableRowProps, TableCellProps, sx, ...rest } = props;
   const style = mergeSx([styles(), tableSx(sx)], { merge: 'deep' });
 
   return (
@@ -46,9 +46,9 @@ export default function Table(props: TableProps) {
           </TableRow>
         </TableHead>
         <TableBody {...TableBodyProps} className={classes.table_body}>
-          {data.map((row, i) => (
-            <TableRow key={`table-body-row-${i}`} {...TableRowProps} className={classes.table_row}>
-              {row.map((cell, j) => (
+          {body.map(({data, ...props}, i) => (
+            <TableRow key={`table-body-row-${i}`} {...TableRowProps} {...props} className={classes.table_row}>
+              {data.map((cell, j) => (
                 <TableCell
                   {...TableCellProps}
                   key={`table-body-cell-${j}`}

@@ -15,7 +15,7 @@ export type TableRowInput = MuiTableRowProps & { data: TableCellInput[] };
 
 export type TableProps = MuiTableContainerProps & {
   head: TableCellInput[];
-  data: TableCellInput[][] | undefined;
+  body: TableRowInput[];
   loadingBehavior?: {
     rows?: number;
     SkeletonProps?: SkeletonProps;
