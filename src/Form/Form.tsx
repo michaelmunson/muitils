@@ -17,6 +17,26 @@ const STYLES = sx({
   }
 })
 
+/**
+ * @description A component that creates a form from a [FormInputGroup](./types.ts#FormInputGroup)
+ * @example
+ * <Form 
+ *  inputs={{
+ *   firstName: text('First Name'),
+ *   lastName: text('Last Name'),
+ *   gender: select('Gender', {options:['Male', 'Female', 'Other'].map(v=>({value:v, label:v}))}),
+ *   age: number('Age', {input:{min: 18}, validate:v=>v>=18}),
+ *   petFish: autocomplete('Pet Fish', {options:['Goldfish', 'Tropical Fish', 'Catfish'].map(v=>({value:v, label:v}))}),
+ *   birthday: date('Birthday', ),
+ * }} 
+ * onSubmit={(v)=>{
+ *   console.log(v.firstName); // string
+ *   console.log(v.lastName); // string
+ *   console.log(v.gender); // 'Male' | 'Female' | 'Other'
+ *   console.log(v.age); // number
+ *   console.log(v.petFish); // string[]
+ * }}/>
+ */
 export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
   const { inputs, onSubmit, onChange, sx: _sx, ...rest } = props;
   const [formInputResult, setFormInputResult] = useState<FormResult<T>>(deriveInitialFormInputGroupResult(inputs));
@@ -80,7 +100,6 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
 
 
   return (
-
     <Col gap={3} sx={sx(STYLES, _sx)} {...rest}>
       {Object.entries(inputs).map((entry, index) => {
         const [key, value] = entry;
@@ -116,10 +135,20 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
 }
 
 
-const f = form({
-  asd: text('asd'),
-  qwe: number('qwe'),
-  zxc: select('zxc', {options: [{value:'asd', label:'asd'}]}),
-  zxc2: custom({value:'', validate:()=>true}, (inputs)=><div>{inputs.value}</div>),
-  zxc3: autocomplete('zxc3', {options: [{value:'asd', label:'asd'}]})
-})
+const f = <Form 
+  inputs={{
+    firstName: text('First Name'),
+    lastName: text('Last Name'),
+    gender: select('Gender', {options:['Male', 'Female', 'Other'].map(v=>({value:v, label:v}))}),
+    age: number('Age', {validate:v=>v>=18, input:{min: 18}}),
+    petFish: autocomplete('Pet Fish', {options:['Goldfish', 'Tropical Fish', 'Catfish'].map(v=>({value:v, label:v}))}),
+    birthday: date('Birthday', {minDate: new Date(1900, 0, 1).toISOString(), maxDate: new Date(2024, 11, 20).toISOString()}),
+  }} 
+  onSubmit={(v)=>{
+    console.log(v.firstName); // string
+    console.log(v.lastName); // string
+    console.log(v.gender); // 'Male' | 'Female' | 'Other'
+    console.log(v.age); // number
+    console.log(v.petFish); // string[]
+
+  }}/>

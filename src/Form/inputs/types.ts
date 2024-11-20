@@ -1,15 +1,15 @@
-import { AutocompleteProps, FormControlProps, SelectProps, TextFieldProps } from "@mui/material";
+import { AutocompleteProps, FormControlProps, SelectProps, SlotProps, TextFieldProps, TextField } from "@mui/material";
 import { InputExtension } from "../types";
 import { DateInputProps } from "../../Input";
 
 export type TextFormInput<T = any> = Omit<TextFieldProps, "onChange"> & InputExtension<T> & {
   label: string;
+  input?: Required<TextFieldProps>['slotProps']['htmlInput'];
   ['::type']: "TEXT_INPUT";
 }
 
 export type DateFormInput = Omit<DateInputProps, "onChange"> & InputExtension<string> & {
   label: string;
-  ['::type']: "DATE_INPUT";
 }
 
 export type AutocompleteFormInput = Partial<Omit<AutocompleteProps<any, any, any, any>, "onChange">> & InputExtension<string> & {

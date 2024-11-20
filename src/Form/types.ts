@@ -40,6 +40,6 @@ export type FormResult<T> = (
 
 export type FormProps<T extends FormInputGroup> = Omit<ColProps, "onSubmit"|"onChange"> & {
   inputs: T;
-  onSubmit: (result: FormResult<T>) => Promise<void>;
+  onSubmit: (result: FormResult<T>) => any;
   onChange?: (result: FormResult<T>) => void;
 }

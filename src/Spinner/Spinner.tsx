@@ -4,8 +4,23 @@ import {createSx} from "../sx";
 
 const sx = createSx();
 
-type SpinnerProps = Omit<CircularProgressProps, "size"> & {fillContainer?:boolean, size?:{x?:number, y?:number}}
+type SpinnerProps = Omit<CircularProgressProps, "size"> & {
+  /**
+   * @description If true, the spinner is wrapped in flexbox and will fill the container
+   */
+  fillContainer?:boolean, 
+  /**
+   * @description The size of the spinner (in pixels)
+   */
+  size?:{x?:number, y?:number}
+}
 
+/**
+ * @description MUI Wrapper for the CircularProgress component
+ * @example ```tsx
+ * <Spinner fillContainer size={{x:30, y:30}}/>
+ * ```
+*/
 function Spinner({fillContainer, ...props}:SpinnerProps){
   const {sx:_sx, size, ...rest} = props;
 

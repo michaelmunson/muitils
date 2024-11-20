@@ -8,10 +8,12 @@ export type Dimension = 'x'|'y'
 export type LayoutDimension = Dimension | Dimension[]
 
 export type Layout = LayoutCol | LayoutRow
+
 export type LayoutCol = Partial<{
   x?: CSSProperties['alignItems']
   y?: CSSProperties['justifyContent'],
 }>
+
 export type LayoutRow = Partial<{
   y: CSSProperties['alignItems']
   x: CSSProperties['justifyContent'],
@@ -24,6 +26,10 @@ export type DefaultProps = Omit<StackProps, "direction"|"flexDirection"> & Parti
 
 export type RowProps = DefaultProps & Partial<{
   row:boolean
+  /**
+   * @description props to pass to the underlying [Flex](./Flex.tsx) component
+   * @example {x:'space-between', y:'center'}
+  */
   layout: LayoutRow
 }>
 

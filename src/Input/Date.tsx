@@ -16,6 +16,12 @@ type DateInputProps = DatePickerProps<any> & {
   value?: string | number | Date | dayjs.Dayjs
 };
 
+/**
+ * @description MUI Wrapper for the DatePicker component
+ * @example ```tsx
+ * <DateInput value={dayjs().toISOString()}/>
+ * ```
+*/
 function DateInput(props: DateInputProps) {
   const { value, sx:_sx, ...rest } = props;
   const dayjsValue:dayjs.Dayjs = (['string','number'].includes(typeof value) || value instanceof Date) ? dayjs(value) : value;

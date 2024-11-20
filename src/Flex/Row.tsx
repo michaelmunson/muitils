@@ -1,6 +1,24 @@
 import { RowProps } from "./types";
 import Flex from "./Flex";
 
+/**
+ * @description A pre-configured [Flex](./Flex.tsx) component that arranges children horizontally.
+ * @example
+ * <Row center={['x', 'y']}>
+ *   <div>Item 1</div>
+ *   <div>Item 2</div>
+ * </Row>
+ * @example
+ * <Row layout={{x:'space-between', y:'center'}}>
+ *   <div>Item 1</div>
+ *   <div>Item 2</div>
+ * </Row>
+ * @example
+ * <Row reverse>
+ *   <div>Item 1</div>
+ *   <div>Item 2</div>
+ * </Row>
+ */
 function Row(props:Omit<RowProps, "row">){
   return <Flex row {...props}/>
 }

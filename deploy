@@ -20,6 +20,10 @@ function incrementVersion(version="patch"){
   fs.writeFileSync("./package.json", JSON.stringify(packageJson, null, 2));
 }
 
+function createDocs(){
+  execSync("npm run create-docs");
+}
+
 function publish(){
   execSync("npm publish");
 }
@@ -35,6 +39,7 @@ function push(version){
     process.exit(1);
   }
   incrementVersion(version);
+  createDocs();
   publish();
   push(version);
 })();
