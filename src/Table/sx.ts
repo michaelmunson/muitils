@@ -37,12 +37,5 @@ const styles = () => {
   return mergeSx([defaultSx, configSx], {merge: 'deep'});
 }
 
-tableSx({
-  color: 'red',
-  '& .table_body' : {
-    
-  }
-})
-
 export {styles};
 export default tableSx;

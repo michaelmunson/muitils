@@ -14,6 +14,7 @@
     "./Input": "./src/Input/index.ts",
     "./Spinner": "./src/Spinner/index.ts",
     "./Form": "./src/Form/index.ts",
+    "./Table": "./src/Table/index.ts",
     "./sx": "./src/sx/index.ts"
   },
   "scripts": {
