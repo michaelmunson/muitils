@@ -74,6 +74,13 @@ function createSxExtensions<Config extends SxConfig>(config: Config): SxExtensio
 
 /**
  * @description Creates a Sx function with extensions
+ * @import
+ * ```tsx
+ * import {createSx} from 'muitils'
+ * // or
+ * import {createSx} from 'muitils/sx'
+ * ```
+ * ---
  * @example 
  * ```tsx
  * const sx = createSx({
@@ -104,6 +111,13 @@ export function createSx<Config extends SxConfigPart>(configuration: Config = ({
 
 /**
  * @description Extends a Sx function with new configuration
+ * @import
+ * ```tsx
+ * import {extendSx} from 'muitils'
+ * // or
+ * import {extendSx} from 'muitils/sx'
+ * ```
+ * ---
  * @example
  * ```tsx
  * const rootSx = createSx({

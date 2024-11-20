@@ -12,6 +12,13 @@ type ButtonProps = MuiButtonProps & {
 
 /**
  * @description A wrapper around MUI's `Button` component with additional features.
+ * @import
+ * ```tsx
+ * import {Button} from 'muitils'
+ * // or
+ * import Button from 'muitils/Button'
+ * ```
+ * ---
  * @example
  * ```tsx
  * <Button loading loadingText="Loading...">

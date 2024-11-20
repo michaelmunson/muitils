@@ -9,6 +9,13 @@ type ButtonPopupProps = Omit<ButtonProps, "onClick"> & {
 
 /**
  * @description A wrapper around MUI's `Button` component that creates a popup menu when clicked.
+ * @import
+ * ```tsx
+ * import {ButtonPopup} from 'muitils'
+ * // or
+ * import {ButtonPopup} from 'muitils/Button'
+ * ```
+ * ---
  * @example
  * ```tsx
  * <ButtonPopup Menu={{sx:{p:2}}} variant="contained">

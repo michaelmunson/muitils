@@ -4,6 +4,13 @@ import { FlexProps } from "./types";
 
 /**
  * @description A wrapper around MUI's `Stack` component that provides an easier way to create flexible layouts.
+ * @import
+ * ```tsx
+ * import {Flex} from 'muitils'
+ * // or
+ * import Flex from 'muitils/Flex'
+ * ```
+ * ---
  * @example
  * ```tsx
  * <Flex layout={{x:'space-between', y:'center'}}>
