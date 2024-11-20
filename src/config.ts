@@ -14,7 +14,7 @@ type ConfigTransform = (component:JSX.Element) => JSX.Element
 
 const createConfig = <S extends Record<string, string>>() => ({
   sx:<ConfigSx<S>>{classes: {},inline: {}},
-  transform:<ConfigTransform>((component)=>component)
+  transform:<ConfigTransform>((component:JSX.Element) : JSX.Element => component)
 })
 
 const CONFIG = <const>{
