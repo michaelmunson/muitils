@@ -30,7 +30,6 @@ function push(version){
 
 (() => {
   const version = process.argv[2] || "patch";
-  console.log("version", version);
   if (version !== "major" && version !== "minor" && version !== "patch" && version.split(".").length !== 3) {
     console.error("Invalid version argument. Must be one of: major, minor, patch, or x.x.x");
     process.exit(1);
