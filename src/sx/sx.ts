@@ -146,7 +146,7 @@ export function createSx<Config extends SxConfigPart>(configuration: Config = ({
  * 
  * const form = (
  *  <Box sx={boxSx}>
- *    <TextField className={sx.classes.input}/>
+ *    <TextField className={sx.classes.field}/>
  *  </Box>
  * )
  * 
