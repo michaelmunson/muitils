@@ -2,14 +2,13 @@ import { useCallback, useEffect, useState } from "react"
 import {Col, Row} from "../Flex"
 import { type FormProps, FormInputGroup, FormResult } from "./types";
 import { TextInput, CustomInput, TextFormInput, CustomFormInput, DateInput } from "./inputs";
-import { ThemeProvider } from "@mui/material";
 import { createSx } from "../sx";
 import { defaultValidate, deriveInitialFormInputGroupResult, isCustomInput, isFormInput, isFormInputRecord, validateForm } from "./utils";
 import Button from "../Button";
-import { isDateInput, isTextInput } from "./inputs/utils";
+import { form, isDateInput, isTextInput } from "./inputs/utils";
+import { text, number, custom, date, autocomplete, select } from "./inputs";
 
 const sx = createSx();
-
 
 const STYLES = sx({
   '& .form-input-row' : {
@@ -65,13 +64,14 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
       />
     }
     else if (isCustomInput(props)) {
-      const [{validate = defaultValidate, }, input] = props;
+      const [{validate = defaultValidate, ...rest}, input] = props;
       return (
         <CustomInput
           input={input}
           value={value}
-          setValue={v => handleSetInputResult(result, keys, v)}
-          isValid={!isValidate || (isValidate && validate(value))}/>
+          setValue={(v:any) => handleSetInputResult(result, keys, v)}
+          isValid={!isValidate || (isValidate && validate(value))}
+          {...rest}/>
       )
     }
     throw new TypeError(`Incorrect props input for GenericFormInput "${keys.join('/')}"`)
@@ -114,3 +114,12 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
     </Col>
   )
 }
+
+
+const f = form({
+  asd: text('asd'),
+  qwe: number('qwe'),
+  zxc: select('zxc', {options: [{value:'asd', label:'asd'}]}),
+  zxc2: custom({value:'', validate:()=>true}, (inputs)=><div>{inputs.value}</div>),
+  zxc3: autocomplete('zxc3', {options: [{value:'asd', label:'asd'}]})
+})

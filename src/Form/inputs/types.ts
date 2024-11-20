@@ -22,8 +22,8 @@ export type SelectFormInput = Omit<SelectProps, "onChange"> & InputExtension<str
   FormControlProps?:FormControlProps;
 }
 
-export type CustomFormInput<T = any, P extends {} = {}> = [
-  config: InputExtension<T>, 
+export type CustomFormInput<T = any, P extends any = any> = [
+  config: InputExtension<T> & P, 
   element:(inputs:(P & {
     value:T,
     setValue:(value:T) => void,

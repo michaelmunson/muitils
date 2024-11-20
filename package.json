@@ -1,17 +1,19 @@
 {
   "name": "muitils",
-  "version": "2.8.0",
+  "version": "2.10.0",
   "description": "A library of useful MUI component wrappers and utilities.",
   "main": "src/index.ts",
-  "files": ["src/**/*"],
-  "exports" : {
-    "." : "./src/index.ts",
-    "./Button" : "./src/Button/index.ts",
-    "./Flex" : "./src/Flex/index.ts",
-    "./Icon" : "./src/Icon/index.ts",
-    "./Input" : "./src/Input/index.ts",
-    "./Spinner" : "./src/Spinner/index.ts",
-    "./sx" : "./src/sx/index.ts"
+  "files": [
+    "src/**/*"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./Button": "./src/Button/index.ts",
+    "./Flex": "./src/Flex/index.ts",
+    "./Icon": "./src/Icon/index.ts",
+    "./Input": "./src/Input/index.ts",
+    "./Spinner": "./src/Spinner/index.ts",
+    "./sx": "./src/sx/index.ts"
   },
   "scripts": {},
   "author": "Michael Munson",

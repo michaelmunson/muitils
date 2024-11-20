@@ -1,3 +1,4 @@
+import { FormInputGroup } from "../types";
 import AutocompleteInput from "./components/AutocompleteInput";
 import SelectInput from "./components/SelectInput";
 import { TextFormInput, CustomFormInput, DateFormInput, AutocompleteFormInput, SelectFormInput } from "./types";
@@ -26,9 +27,10 @@ export const date = (label:string, props?:Partial<DateFormInput>) : DateFormInpu
 });
 
 export const autocomplete = (label:string, props?:Partial<AutocompleteFormInput>) => custom<string, AutocompleteFormInput>({label, value:'', ...props}, AutocompleteInput);
-  
-export const select = (label:string, props?:Partial<SelectFormInput>) => custom<string, SelectFormInput>({label, value:'', ...props}, SelectInput);
 
+export const select = (label:string, props?:Partial<SelectFormInput>) => custom<string, SelectFormInput>({label, value:'', options:[], ...props}, SelectInput);
+
+export const form = <T extends FormInputGroup>(inputs:T) : T => inputs
 /* CHECKERS */
 export const isDateInput = (input:any) : input is DateFormInput => input?.['::type'] === "DATE_INPUT";
 export const isTextInput = (input:any) : input is TextFormInput => input?.['::type'] === "TEXT_INPUT";
