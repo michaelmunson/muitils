@@ -1,6 +1,6 @@
 {
   "name": "muitils",
-  "version": "2.11.5",
+  "version": "2.12.0",
   "description": "A library of useful MUI component wrappers and utilities.",
   "main": "src/index.ts",
   "files": [
