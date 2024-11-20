@@ -21,14 +21,25 @@ const STYLES = sx({
  * @description A component that creates a form from a [FormInputGroup](./types.ts#FormInputGroup)
  * @example
  * ```tsx
+ * import Form, {text, number, select, autocomplete, date} from 'muitils/Form';
+ * 
  * <Form 
  *  inputs={{
  *   firstName: text('First Name'),
  *   lastName: text('Last Name'),
- *   gender: select('Gender', {options:['Male', 'Female', 'Other'].map(v=>({value:v, label:v}))}),
+ *   gender: select('Gender', {
+ *     options:['Male', 'Female', 'Other']
+ *      .map(v=>({value:v, label:v}))
+ *   }),
  *   age: number('Age', {input:{min: 18}, validate:v=>v>=18}),
- *   petFish: autocomplete('Pet Fish', {options:['Goldfish', 'Tropical Fish', 'Catfish'].map(v=>({value:v, label:v}))}),
- *   birthday: date('Birthday', ),
+ *   petFish: autocomplete('Pet Fish', {
+ *     options:['Goldfish', 'Tropical Fish', 'Catfish']
+ *     .map(v=>({value:v, label:v}))
+ *   }),
+ *   birthday: date('Birthday', {
+ *     minDate: new Date(1900, 0, 1).toISOString(),
+ *     maxDate: new Date(2024, 11, 20).toISOString()
+ *   }),
  * }} 
  * onSubmit={(v)=>{
  *   console.log(v.firstName); // string
@@ -36,6 +47,7 @@ const STYLES = sx({
  *   console.log(v.gender); // 'Male' | 'Female' | 'Other'
  *   console.log(v.age); // number
  *   console.log(v.petFish); // string[]
+ *   console.log(v.birthday); // string (iso date string)
  * }}/>
  * ```
  */
@@ -137,7 +149,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
 }
 
 
-const f = <Form 
+/* const f = <Form 
   inputs={{
     firstName: text('First Name'),
     lastName: text('Last Name'),
@@ -152,5 +164,5 @@ const f = <Form
     console.log(v.gender); // 'Male' | 'Female' | 'Other'
     console.log(v.age); // number
     console.log(v.petFish); // string[]
-
-  }}/>
+    console.log(v.birthday); // ISOString
+  }}/> */
