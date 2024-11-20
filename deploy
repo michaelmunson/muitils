@@ -18,6 +18,7 @@ function incrementVersion(version="patch"){
     packageJson.version = version;
   }
   fs.writeFileSync("./package.json", JSON.stringify(packageJson, null, 2));
+  return packageJson.version;
 }
 
 function createDocs(){
@@ -39,8 +40,8 @@ function push(version, message){
     console.error("Invalid version argument. Must be one of: major, minor, patch, or x.x.x");
     process.exit(1);
   }
-  incrementVersion(version);
+  const newVersion = incrementVersion(version);
   createDocs();
   publish();
-  push(version, message);
+  push(newVersion, message);
 })();
