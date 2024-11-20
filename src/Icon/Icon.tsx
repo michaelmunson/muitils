@@ -10,19 +10,19 @@ type IconProps = SvgIconProps & {
 /**
  * @description A wrapper around MUI's Icon components with additional features.
  * @example
+ * creates a `<SvgIcon/>` component
  * ```tsx
- * // simple icon
  * <Icon name="Add" />
  * ```
  * @example
+ * creates an `<IconButton/>` component
  * ```tsx
- * // icon button
  * <Icon name="Add" button />
  * ```
  * @example
+ * `IconButton` with custom props
  * ```tsx
- * // icon button with custom props
- * <Icon name="Add" button={{sx:{p:2}}} />
+ * <Icon name="Add" button={{onClick:()=>alert('clicked')}} />
  * ```
  */
 function Icon(props: IconProps) : JSX.Element {
