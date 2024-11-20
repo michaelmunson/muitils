@@ -7,7 +7,8 @@ import { TextFormInput, CustomFormInput, DateFormInput, AutocompleteFormInput, S
 
 /**
  * @description Specifies a text input
- * @example ```tsx
+ * @example 
+ * ```tsx
  * text('First Name', {validate:v=>v.length>0, placeholder:'Enter your first name'})
  * ```
 */ 
@@ -20,7 +21,8 @@ export const text = (label:string, props?:Partial<TextFormInput<string>>) : Text
 
 /**
  * @description Specifies a number input
- * @example ```tsx
+ * @example 
+ * ```tsx
  * number('Age', {validate:v=>v>=18, input:{min: 18}})
  * ```
 */ 
@@ -34,7 +36,8 @@ export const number = (label:string, props?:Partial<TextFormInput<number>>) : Te
 
 /**
  * @description Specifies a custom input
- * @example ```tsx
+ * @example 
+ * ```tsx
  * custom({label:'My Custom Input', value:'', ...props}, ({value, setValue, isValid}) => (
  *   <input type="text" value={value} onChange={e=>setValue(e.target.value)} />
  * ))
@@ -44,7 +47,8 @@ export const custom = <V, P extends {} = {}>(config:CustomFormInput<V, P>[0], re
 
 /**
  * @description Specifies a date input
- * @example ```tsx
+ * @example 
+ * ```tsx
  * date('Birthday', {minDate: new Date(1900, 0, 1).toISOString(), maxDate: new Date(2024, 11, 20).toISOString()})
  * ```
 */ 
@@ -52,7 +56,8 @@ export const date = (label:string, props?:Partial<DateFormInput>) => custom<stri
 
 /**
  * @description Specifies an autocomplete input
- * @example ```tsx
+ * @example 
+ * ```tsx
  * autocomplete('Pet Fish', {options:['Goldfish', 'Tropical Fish', 'Catfish'].map(v=>({value:v, label:v}))})
  * ```
 */ 
@@ -60,7 +65,8 @@ export const autocomplete = (label:string, props?:Partial<AutocompleteFormInput>
 
 /**
  * @description Specifies a select input
- * @example ```tsx
+ * @example 
+ * ```tsx
  * select('Gender', {options:['Male', 'Female', 'Other'].map(v=>({value:v, label:v}))})
  * ```
 */ 
@@ -68,7 +74,8 @@ export const select = (label:string, props?:Partial<SelectFormInput>) => custom<
 
 /**
  * @description allows creation of a form outside of the Form component
- * @example ```tsx
+ * @example 
+ * ```tsx
  * const myForm = form({
  *   firstName: text('First Name', {validate:v=>v.length>0, placeholder:'Enter your first name'}),
  *   lastName: text('Last Name', {validate:v=>v.length>0, placeholder:'Enter your last name'}),

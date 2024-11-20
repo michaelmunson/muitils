@@ -20,6 +20,7 @@ const STYLES = sx({
 /**
  * @description A component that creates a form from a [FormInputGroup](./types.ts#FormInputGroup)
  * @example
+ * ```tsx
  * <Form 
  *  inputs={{
  *   firstName: text('First Name'),
@@ -36,6 +37,7 @@ const STYLES = sx({
  *   console.log(v.age); // number
  *   console.log(v.petFish); // string[]
  * }}/>
+ * ```
  */
 export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
   const { inputs, onSubmit, onChange, sx: _sx, ...rest } = props;
