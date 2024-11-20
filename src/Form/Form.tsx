@@ -7,13 +7,15 @@ import { defaultValidate, deriveInitialFormInputGroupResult, isCustomInput, isFo
 import Button from "../Button";
 import { form, isDateInput, isTextInput } from "./inputs/utils";
 import { text, number, custom, date, autocomplete, select } from "./inputs";
+import formSx from "./config";
+import { getConfig } from "../config";
 
-const sx = createSx();
-
-const STYLES = sx({
-  '& .form-input-row' : {
+const sx = () => formSx({
+  ...getConfig().Form.sx.inline,
+  '& .form_input_row' : {
     width: '100%',
-    gap: 2
+    gap: 2,
+    ...getConfig().Form.sx.classes['form_input_row']
   }
 })
 
@@ -118,17 +120,15 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
     throw new TypeError(`Incorrect props input for GenericFormInput "${keys.join('/')}"`)
   }, [isValidate]);
 
-
-
-  return (
-    <Col gap={3} sx={sx(STYLES, _sx)} {...rest}>
+  return getConfig().Form.transform(
+    <Col gap={3} sx={formSx(sx(), _sx)} {...rest}>
       {Object.entries(inputs).map((entry, index) => {
         const [key, value] = entry;
         if (isFormInput(value) || isCustomInput(value)) return (
           <GenericFormInput key={`form-input-${index}`} keys={[key]} props={value} result={formInputResult} />
         );
         else if (isFormInputRecord(value)) return (
-          <Row key={`form-input-row-${index}`} className={`form-input-row`}>
+          <Row key={`form_input_row-${index}`} className={`form_input_row`}>
             {Object.entries(value).map((entry2, index2) => {
               const [key2, value2] = entry2;
               return (
@@ -154,22 +154,3 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
     </Col>
   )
 }
-
-
-/* const f = <Form 
-  inputs={{
-    firstName: text('First Name'),
-    lastName: text('Last Name'),
-    gender: select('Gender', {options:['Male', 'Female', 'Other'].map(v=>({value:v, label:v}))}),
-    age: number('Age', {validate:v=>v>=18, input:{min: 18}}),
-    petFish: autocomplete('Pet Fish', {options:['Goldfish', 'Tropical Fish', 'Catfish'].map(v=>({value:v, label:v}))}),
-    birthday: date('Birthday', {minDate: new Date(1900, 0, 1).toISOString(), maxDate: new Date(2024, 11, 20).toISOString()}),
-  }} 
-  onSubmit={(v)=>{
-    console.log(v.firstName); // string
-    console.log(v.lastName); // string
-    console.log(v.gender); // 'Male' | 'Female' | 'Other'
-    console.log(v.age); // number
-    console.log(v.petFish); // string[]
-    console.log(v.birthday); // ISOString
-  }}/> */

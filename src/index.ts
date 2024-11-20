@@ -12,4 +12,9 @@ export {default as Spinner} from './Spinner';
 
 export {default as Form} from './Form';
 
-export * from './Input'
+export * from './Input';
+
+import Muitils from './muitils';
+
+export default Muitils;
+
