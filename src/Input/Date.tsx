@@ -18,13 +18,13 @@ type DateInputProps = DatePickerProps<any> & {
 
 /**
  * @description MUI Wrapper for the DatePicker component
- * @import
+ * @importing
  * ```tsx
  * import {DateInput} from 'muitils'
  * // or
  * import {DateInput} from 'muitils/Input'
  * ```
- * ---
+ * <br><hr><br>
  * @example 
  * ```tsx
  * <DateInput value={dayjs().toISOString()}/>

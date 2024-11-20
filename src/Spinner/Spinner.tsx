@@ -17,13 +17,13 @@ type SpinnerProps = Omit<CircularProgressProps, "size"> & {
 
 /**
  * @description MUI Wrapper for the CircularProgress component
- * @import
+ * @importing
  * ```tsx
  * import {Spinner} from 'muitils'
  * // or
  * import Spinner from 'muitils/Spinner'
  * ```
- * ---
+ * <br><hr><br>
  * @example 
  * ```tsx
  * <Spinner fillContainer size={{x:30, y:30}} sx={{color:'red'}}/>

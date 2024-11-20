@@ -3,13 +3,13 @@ import Flex from "./Flex";
 
 /**
  * @description A pre-configured [Flex](./Flex.tsx) component that arranges children vertically.
- * @import
+ * @importing
  * ```tsx
  * import {Col} from 'muitils'
  * // or
  * import {Col} from 'muitils/Flex'
  * ```
- * ---
+ * <br><hr><br>
  * @example 
  * ```tsx
  * <Col center={['x', 'y']}>

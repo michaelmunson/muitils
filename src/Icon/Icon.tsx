@@ -9,13 +9,13 @@ type IconProps = SvgIconProps & {
 
 /**
  * @description A wrapper around MUI's Icon components with additional features.
- * @import
+ * @importing
  * ```tsx
  * import {Icon} from 'muitils'
  * // or
  * import Icon from 'muitils/Icon'
  * ```
- * ---
+ * <br><hr><br>
  * @example
  * creates a `<SvgIcon/>` component
  * ```tsx

@@ -19,13 +19,13 @@ const STYLES = sx({
 
 /**
  * @description A component that creates a form from a [FormInputGroup](./types.ts#FormInputGroup)
- * @import
+ * @importing
  * ```tsx
  * import {Form} from 'muitils'
  * // or
  * import Form, {...helpers} from 'muitils/Form'
  * ```
- * ---
+ * <br><hr><br>
  * @example
  * ```tsx
  * import Form, {text, number, select, autocomplete, date} from 'muitils/Form';

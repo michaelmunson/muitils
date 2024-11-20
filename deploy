@@ -28,12 +28,13 @@ function publish(){
   execSync("npm publish");
 }
 
-function push(version){
-  execSync(`git add . && git commit -m 'deploy ${version}' && git push`);
+function push(version, message){
+  execSync(`git add . && git commit -m '${version}${message}' && git push`);
 }
 
 (() => {
   const version = process.argv[2] || "patch";
+  const message = process.argv[3] ? ` - ${process.argv[3]}` : "";
   if (version !== "major" && version !== "minor" && version !== "patch" && version.split(".").length !== 3) {
     console.error("Invalid version argument. Must be one of: major, minor, patch, or x.x.x");
     process.exit(1);
@@ -41,5 +42,5 @@ function push(version){
   incrementVersion(version);
   createDocs();
   publish();
-  push(version);
+  push(version, message);
 })();
