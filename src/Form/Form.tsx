@@ -136,7 +136,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
           variant="contained"
           color="success"
           onClick={handleSubmit}
-          sx={{borderRadius: '20px', width: '200px', fontWeight:'bold', fontSize: '1.1rem', mt:2}}
+          className={formSx.classes.submit_button}
           loading={isSubmitting}
           loadingText="Submitting"
           >

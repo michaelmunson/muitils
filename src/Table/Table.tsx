@@ -1,9 +1,10 @@
 import { Paper, Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, Skeleton } from "@mui/material";
 import tableSx, { styles } from "./sx";
 import { TableProps, Cell } from "./types";
+import { mergeSx } from "../sx";
+import { getConfig } from "../config";
 
 const classes = tableSx.classes;
-
 
 /**
  * @description A table component wrapper for MUI Table.
@@ -19,22 +20,23 @@ const classes = tableSx.classes;
  *     [{value: 'Sarah'}, {value: 32}]
  *   ]}
  *   loadingBehavior={{rows: 5, SkeletonProps: {variant: 'text'}}}
- *   TableContainerProps={{sx: {maxHeight: '500px'}}}
  *   TableProps={{sx: {maxHeight: '500px'}}}
  *   TableHeadProps={{sx: {backgroundColor: 'red'}}}
  *   TableBodyProps={{sx: {backgroundColor: 'blue'}}}
  *   TableRowProps={{sx: {backgroundColor: 'green'}}}
  *   TableCellProps={{sx: {backgroundColor: 'yellow'}}}
+ *   {...rest} // MuiTableProps
  * />
  * ```
 */
 export default function Table(props: TableProps) {
   const skeletons = props.head.map(() => ({ value: <Skeleton width={'90%'} height={'20px'} {...props.loadingBehavior?.SkeletonProps} /> }));
-  const { head, data=Array(props.loadingBehavior?.rows ?? 5).fill(skeletons) as Cell[][], TableContainerProps, TableProps, TableHeadProps, TableBodyProps, TableRowProps, TableCellProps } = props;
+  const { head, data=Array(props.loadingBehavior?.rows ?? 5).fill(skeletons) as Cell[][], TableProps, TableHeadProps, TableBodyProps, TableRowProps, TableCellProps, sx, ...rest } = props;
+  const style = mergeSx([styles(), tableSx(sx)], { merge: 'deep' });
 
   return (
-    <TableContainer {...TableContainerProps} component={Paper} sx={styles()} >
-      <MuiTable {...TableProps} className={classes.table} stickyHeader aria-label="simple table">
+    <TableContainer component={Paper} sx={style} {...rest} {...getConfig().Table.props}>
+      <MuiTable className={classes.table} stickyHeader aria-label="simple table" {...TableProps} >
         <TableHead {...TableHeadProps} className={classes.table_head}>
           <TableRow {...TableRowProps} className={classes.table_row}>
             {head.map((h, i) => (

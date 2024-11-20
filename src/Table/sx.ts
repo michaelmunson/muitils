@@ -3,6 +3,7 @@ import {createSx, mergeSx} from '../sx';
 
 const tableSx = createSx({
   classes: <const>[
+    'table_container',
     'table',
     'table_head',
     'table_body',

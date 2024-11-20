@@ -26,10 +26,21 @@ export class Muitils {
    *      <ThemeProvider theme={theme}>
    *         {component}
    *       </ThemeProvider>
-   *     )
+   *     ),
+   *     props: {
+   *       className: 'test'
+   *     }
    *   }
    * })
    * ```
    */
   static configure = setConfig;
 }
+
+Muitils.configure({
+  Form: {
+    props: {
+      className: 'test'
+    }
+  }
+})

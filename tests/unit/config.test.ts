@@ -29,6 +29,8 @@ describe('config', () => {
     const styles = formStyles()
     expect(Boolean((styles as any)['& .form_input_row']))
     expect(Boolean((styles as any)['& .random']))
+    expect(config.Form.transform).toBeDefined();
+    expect(Boolean((styles as any)['& .submit_button']))
   });
   test('setConfig - Table', () => {
     setConfig({

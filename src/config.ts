@@ -1,5 +1,7 @@
 import formSx from './Form/sx';
+import { FormProps } from './Form/types';
 import tableSx from './Table/sx';
+import { TableProps } from './Table/types';
 import { ExtractSxRecord} from './sx/types';
 
 type DeepPartial<T> = {
@@ -7,17 +9,31 @@ type DeepPartial<T> = {
 };
 
 type ConfigSx<S> = ExtractSxRecord<S>;
-
+type ConfigProps<P extends Record<string, any>> = Partial<P>;
 type ConfigTransform = (component:JSX.Element) => JSX.Element
 
-const createConfig = <S>() => ({
-  sx:<ConfigSx<S>>{},
+const createConfig = <T extends {sx:S, props:P}, S extends ConfigSx<any> = any, P extends Record<string, any> = any>() => ({
+  /**
+   * @description Global sx modifier
+   */
+  sx:<ConfigSx<T['sx']>>{},
+  /**
+   * @description Global props modifier
+   */
+  props:<ConfigProps<T['props']>>{},
+  /**
+   * @description Global transform function
+   * @example
+   * ```tsx
+   * (component:JSX.Element) => component
+   * ```
+   */
   transform:<ConfigTransform>((component:JSX.Element) : JSX.Element => component)
 })
 
 const CONFIG = <const>{
-  Form: createConfig<typeof formSx>(),
-  Table: createConfig<typeof tableSx>(),
+  Form: createConfig<{sx:typeof formSx, props:FormProps<any>}>(),
+  Table: createConfig<{sx:typeof tableSx, props:TableProps}>(),
 }
 
 /**
