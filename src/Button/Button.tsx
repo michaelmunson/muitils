@@ -13,7 +13,25 @@ type ButtonProps = MuiButtonProps & {
 /**
  * @description A wrapper around MUI's `Button` component with additional features.
  * @example
- * <Button loading loadingText="Loading..." Icon={faSpinner}/>
+ * ```tsx
+ * <Button loading loadingText="Loading...">
+ *   Click Me
+ * </Button>
+ * ```
+ * @example
+ * ```tsx
+ * // Icon Button
+ * <Button Icon={'Add'}>
+ *   Add
+ * </Button>
+ * ```
+ * @example
+ * ```tsx
+ * // Icon Button with custom props
+ * <Button Icon={{name:'Add', color:'red'}}>
+ *   Add
+ * </Button>
+ * ```
  */
 function Button(props:ButtonProps) {
   const {Icon:icon, loading, loadingText,...rest} = props;

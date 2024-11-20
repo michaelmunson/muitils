@@ -1,11 +1,16 @@
 import * as React from 'react';
 import MuiMenu, { MenuProps as MuiMenuProps } from '@mui/material/Menu';
 import { Button, ButtonProps } from './Button';
-import { Box } from '@mui/material';
+
+type ButtonPopupProps = Omit<ButtonProps, "onClick"> & {
+  /**@description props to pass to the <MuiMenu/> component*/
+  Menu?: Omit<MuiMenuProps, "children" | "onClose">;
+}
 
 /**
  * @description A wrapper around MUI's `Button` component that creates a popup menu when clicked.
  * @example
+ * ```tsx
  * <ButtonPopup Menu={{sx:{p:2}}} variant="contained">
  *   <MenuList>
  *     <MenuItem>Item 1</MenuItem>
@@ -13,11 +18,6 @@ import { Box } from '@mui/material';
  *   </MenuList>
  * </ButtonPopup>
  */
-type ButtonPopupProps = Omit<ButtonProps, "onClick"> & {
-  /**@description props to pass to the <MuiMenu/> component*/
-  Menu?: Omit<MuiMenuProps, "children" | "onClose">;
-}
-
 function ButtonPopup(props: ButtonPopupProps) {
   const { children, Menu, ...rest } = props;
 

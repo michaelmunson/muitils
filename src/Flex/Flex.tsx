@@ -5,15 +5,19 @@ import { FlexProps } from "./types";
 /**
  * @description A wrapper around MUI's `Stack` component that provides an easier way to create flexible layouts.
  * @example
+ * ```tsx
  * <Flex layout={{x:'space-between', y:'center'}}>
  *   <div>Item 1</div>
  *   <div>Item 2</div>
  * </Flex>
+ * ```
  * @example
+ * ```tsx
  * <Flex col reverse>
  *   <div>Item 1</div>
  *   <div>Item 2</div>
  * </Flex>
+ * ```
  */
 function Flex(props:FlexProps){
   const layout = getLayout(props);

@@ -14,3 +14,5 @@ export * from './Input'
 export * from './Spinner'
 export {default as Spinner} from './Spinner';
 
+export * from './Form'
+export {default as Form} from './Form';

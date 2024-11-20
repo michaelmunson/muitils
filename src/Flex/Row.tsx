@@ -4,20 +4,26 @@ import Flex from "./Flex";
 /**
  * @description A pre-configured [Flex](./Flex.tsx) component that arranges children horizontally.
  * @example
+ * ```tsx
  * <Row center={['x', 'y']}>
  *   <div>Item 1</div>
  *   <div>Item 2</div>
  * </Row>
+ * ```
  * @example
+ * ```tsx
  * <Row layout={{x:'space-between', y:'center'}}>
  *   <div>Item 1</div>
  *   <div>Item 2</div>
  * </Row>
+ * ```
  * @example
+ * ```tsx
  * <Row reverse>
  *   <div>Item 1</div>
  *   <div>Item 2</div>
  * </Row>
+ * ```
  */
 function Row(props:Omit<RowProps, "row">){
   return <Flex row {...props}/>

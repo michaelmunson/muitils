@@ -17,7 +17,8 @@ type SpinnerProps = Omit<CircularProgressProps, "size"> & {
 
 /**
  * @description MUI Wrapper for the CircularProgress component
- * @example ```tsx
+ * @example 
+ * ```tsx
  * <Spinner fillContainer size={{x:30, y:30}}/>
  * ```
 */
