@@ -1,17 +1,28 @@
-import {TableCellProps, TableProps as MuiTableProps, TableContainerProps, TableBodyProps, TableHeadProps, TableRowProps, SkeletonProps } from "@mui/material";
+import {
+  TableCellProps as MuiTableCellProps,
+  TableProps as MuiTableProps,
+  TableContainerProps as MuiTableContainerProps,
+  TableBodyProps as MuiTableBodyProps,
+  TableHeadProps as MuiTableHeadProps,
+  TableRowProps as MuiTableRowProps,
+  SkeletonProps
+} from "@mui/material";
 
-export type Cell = (TableCellProps & { value?: React.ReactNode })
+export type { MuiTableCellProps, MuiTableRowProps, MuiTableProps, MuiTableBodyProps, MuiTableHeadProps }
 
-export type TableProps = TableContainerProps & {
-  head: Cell[];
-  data: Cell[][] | undefined;
+export type TableCellInput = (MuiTableCellProps & { value?: React.ReactNode });
+export type TableRowInput = MuiTableRowProps & { data: TableCellInput[] };
+
+export type TableProps = MuiTableContainerProps & {
+  head: TableCellInput[];
+  data: TableCellInput[][] | undefined;
   loadingBehavior?: {
     rows?: number;
     SkeletonProps?: SkeletonProps;
   }
   TableProps?: MuiTableProps;
-  TableHeadProps?: TableHeadProps;
-  TableBodyProps?: TableBodyProps;
-  TableRowProps?: TableRowProps;
-  TableCellProps?: TableCellProps;
+  TableHeadProps?: MuiTableHeadProps;
+  TableBodyProps?: MuiTableBodyProps;
+  TableRowProps?: MuiTableRowProps;
+  TableCellProps?: MuiTableCellProps;
 }

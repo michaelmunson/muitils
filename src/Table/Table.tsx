@@ -1,6 +1,6 @@
 import { Paper, Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, Skeleton } from "@mui/material";
 import tableSx, { styles } from "./sx";
-import { TableProps, Cell } from "./types";
+import { TableProps, TableCellInput } from "./types";
 import { mergeSx } from "../sx";
 import { getConfig } from "../config";
 
@@ -10,15 +10,16 @@ const classes = tableSx.classes;
  * @description A table component wrapper for MUI Table.
  * @example
  * ```tsx
+ * import Table, { body, row, head } from 'muitils/Table';
  * <Table 
- *   head={[
+ *   head={head(
  *     {value: 'Name'},
  *     {value: 'Age'}
- *   ]} 
- *   data={[
- *     [{value: 'Michael'}, {value: 34}],
- *     [{value: 'Sarah'}, {value: 32}]
- *   ]}
+ *   )} 
+ *   data={body(
+ *     row({sx: {backgroundColor: 'red'}}, {value: 'Michael'}, {value: 34}),
+ *     row({sx: {backgroundColor: 'blue'}}, {value: 'Sarah'}, {value: 32})
+ *   )}
  *   loadingBehavior={{rows: 5, SkeletonProps: {variant: 'text'}}}
  *   TableProps={{sx: {maxHeight: '500px'}}}
  *   TableHeadProps={{sx: {backgroundColor: 'red'}}}
@@ -31,7 +32,7 @@ const classes = tableSx.classes;
 */
 export default function Table(props: TableProps) {
   const skeletons = props.head.map(() => ({ value: <Skeleton width={'90%'} height={'20px'} {...props.loadingBehavior?.SkeletonProps} /> }));
-  const { head, data=Array(props.loadingBehavior?.rows ?? 5).fill(skeletons) as Cell[][], TableProps, TableHeadProps, TableBodyProps, TableRowProps, TableCellProps, sx, ...rest } = props;
+  const { head, data=Array(props.loadingBehavior?.rows ?? 5).fill(skeletons) as TableCellInput[][], TableProps, TableHeadProps, TableBodyProps, TableRowProps, TableCellProps, sx, ...rest } = props;
   const style = mergeSx([styles(), tableSx(sx)], { merge: 'deep' });
 
   return (
