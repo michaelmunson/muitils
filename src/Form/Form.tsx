@@ -53,8 +53,9 @@ import { getConfig } from "../config";
  * ```
  */
 export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
-  const { inputs, onSubmit, onChange, sx: _sx, SubmitProps={WrapperProps: {}, ButtonProps: {}}, ...rest } = props;
-  const {WrapperProps, ButtonProps} = SubmitProps;
+  const { inputs, onSubmit, onChange, sx: _sx, SubmitProps, ...rest } = props;
+  const WrapperProps = SubmitProps?.WrapperProps;
+  const ButtonProps = SubmitProps?.ButtonProps;
   const [formInputResult, setFormInputResult] = useState<FormResult<T>>(deriveInitialFormInputGroupResult(inputs));
   const [isValidate, setIsValidate] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -133,7 +134,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
         );
         return <></>
       })}
-      <Row center={'x'} {...(WrapperProps ?? {})}>
+      <Row center={'x'} {...WrapperProps}>
         <Button
           variant="contained"
           color="success"
@@ -141,7 +142,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
           className={formSx.classes.submit_button}
           loading={isSubmitting}
           loadingText="Submitting"
-          {...(ButtonProps ?? {})}
+          {...ButtonProps}
         >
           {ButtonProps?.children ?? 'Submit'}
         </Button>
