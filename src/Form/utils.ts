@@ -23,7 +23,7 @@ function deriveInitialFormInputRecordResult<T extends FormInputRecord>(group:T) 
 }
 
 export function isFormInput<T>(props:any) : props is TextFormInput<T> {
-  return !isCustomInput(props) && "label" in props && typeof props.label === "string";
+  return !isCustomInput(props) && "::type" in props;
 }
 
 export function isCustomInput<T>(props:any) : props is CustomFormInput<T> {
@@ -60,14 +60,16 @@ export function validateForm<T>(form:{inputs:FormInputGroup | FormInputRecord, r
   const {inputs, result} = form;
   for (const key in inputs){
     const value = inputs[key];
-    if (isFormInput(value)){
-      const validate = value.validate ? value.validate : (v:any) => !!v;
+    if (isCustomInput(value)){
+      
+      const [config] = value;
+      const validate = config.validate ?? defaultValidate;
       if (!validate(result[key]))
         return false;
     }
-    else if (isCustomInput(value)){
-      const [config] = value;
-      const validate = config.validate ?? defaultValidate;
+    else if (isFormInput(value)){
+      
+      const validate = value.validate ? value.validate : defaultValidate;
       if (!validate(result[key]))
         return false;
     }

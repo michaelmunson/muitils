@@ -1,14 +1,19 @@
 import dayjs from "dayjs";
 import { DateInput as DateInputComponent, DateInputProps } from "../../../Input";
+import { InputPropsExtension } from "../../types";
 
 
 
-export default function DateInput(props:DateInputProps & {value:string, setValue:(value:string) => void}){
+export default function DateInput(props:DateInputProps & Omit<InputPropsExtension<string>, 'isValidate'>){
+  const { validate, setValue, ...rest } = props;
   return (
     <DateInputComponent 
-      {...props} 
+      {...rest}
       value={props.value ? dayjs(props.value) : undefined} 
-      onChange={(v:dayjs.Dayjs) => props.setValue(v.toISOString())}
+      onChange={(v:dayjs.Dayjs) => {
+        setValue(v.toISOString())
+        if (validate) validate(v.toISOString())
+      }}
     />
   )
 }

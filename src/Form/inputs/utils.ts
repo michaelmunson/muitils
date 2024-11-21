@@ -31,6 +31,7 @@ export const number = (label:string, props?:Partial<TextFormInput<number>>) : Te
   label,
   value: 0,
   type: 'number',
+  transform: v=>Number(v),
   ...props,
 });
 

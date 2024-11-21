@@ -9,7 +9,7 @@ export type InputExtension<T> = {
   transform?: (value:any) => T;
 }
 
-export type InputPropsExtension<T> = { setValue: (value: T) => T; isValidate: boolean };
+export type InputPropsExtension<T> = { setValue: (value: T) => any; isValidate: boolean; validate?: (value:T) => boolean };
 
 export type FormInputRecord = {
   [key:string] : TextFormInput | CustomFormInput

@@ -18,7 +18,7 @@ export default function AutocompleteInput({value, setValue, isValid, errorText, 
       disablePortal
       value={value}
       onChange={(_, v) => {
-        if (v) setValue(v)
+        if (v) setValue(v.value ? v.value : v)
       }}
       loading={loading}
       options={options}

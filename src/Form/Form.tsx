@@ -2,11 +2,9 @@ import { useCallback, useEffect, useState } from "react"
 import {Col, Row} from "../Flex"
 import { type FormProps, FormInputGroup, FormResult } from "./types";
 import { TextInput, CustomInput, TextFormInput, CustomFormInput, DateInput } from "./inputs";
-import { createSx } from "../sx";
 import { defaultValidate, deriveInitialFormInputGroupResult, isCustomInput, isFormInput, isFormInputRecord, validateForm } from "./utils";
 import Button from "../Button";
-import { form, isDateInput, isTextInput } from "./inputs/utils";
-import { text, number, custom, date, autocomplete, select } from "./inputs";
+import { isDateInput, isTextInput } from "./inputs/utils";
 import formSx, { styles } from "./sx";
 import { getConfig } from "../config";
 
@@ -62,6 +60,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
 
   useEffect(() => {
     if (onChange) onChange(formInputResult);
+    console.log(validateForm({inputs, result: formInputResult}))
   }, [formInputResult])
 
   const handleSetInputResult = (result: FormResult<T>, key: string[], value: any) => {
@@ -97,7 +96,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
       return <DateInput
         {...props}
         value={value}
-        onChange={v => handleSetInputResult(result, keys, v)}
+        setValue={(v:any) => handleSetInputResult(result, keys, v)}
       />
     }
     else if (isCustomInput(props)) {
@@ -142,6 +141,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
           className={formSx.classes.submit_button}
           loading={isSubmitting}
           loadingText="Submitting"
+          disabled={!validateForm({ inputs, result: formInputResult })}
           {...ButtonProps}
         >
           {ButtonProps?.children ?? 'Submit'}
