@@ -159,7 +159,7 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart>(
 ): SxExtendee extends Sx<infer Config> ? SxConfigMerge<Config, ExtConfig> : never {
   const SX = sx as Sx;
   const CF = { ...DEFAULT_CONFIG, ...config }
-  const classes: any = [SX.classes, CF.classes].flat();
+  const classes: any = [Object.values(SX.classes), Object.values(CF.classes)].flat();
   const definitions: any = { ...SX?.definitions, ...CF.definitions };
   return createSx({
     classes,
