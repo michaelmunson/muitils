@@ -3,6 +3,8 @@ import tableSx, { styles } from "./sx";
 import { TableProps, TableCellInput } from "./types";
 import { mergeSx } from "../sx";
 import { getConfig } from "../config";
+import { body, row } from "./utils";
+import { head } from "./utils";
 
 const classes = tableSx.classes;
 
