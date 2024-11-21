@@ -1,4 +1,5 @@
-import { ColProps } from "../Flex";
+import { ButtonProps } from "../Button/Button";
+import { ColProps, RowProps } from "../Flex";
 import { TextFormInput, CustomFormInput } from "./inputs";
 
 export type InputExtension<T> = {
@@ -42,4 +43,8 @@ export type FormProps<T extends FormInputGroup> = Omit<ColProps, "onSubmit"|"onC
   inputs: T;
   onSubmit: (result: FormResult<T>) => any;
   onChange?: (result: FormResult<T>) => void;
+  SubmitProps?: {
+    WrapperProps?: RowProps;
+    ButtonProps?: ButtonProps;
+  }
 }
