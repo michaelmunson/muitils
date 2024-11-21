@@ -102,11 +102,12 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
       const [{validate = defaultValidate, ...rest}, input] = props;
       return (
         <CustomInput
+          {...rest}
           input={input}
           value={value}
           setValue={(v:any) => handleSetInputResult(result, keys, v)}
           isValid={!isValidate || (isValidate && validate(value))}
-          {...rest}/>
+        />
       )
     }
     throw new TypeError(`Incorrect props input for GenericFormInput "${keys.join('/')}"`)
