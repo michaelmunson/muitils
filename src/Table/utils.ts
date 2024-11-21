@@ -16,8 +16,8 @@ type RowArgs = [props:MuiTableRowProps, cells:TableCellInput[]] | [cells:TableCe
  * ```
  */
 export const body = (...args:BodyArgs) => <TableBodyInput>({
-  ...(Array.isArray(args) ? args[0] : {}),
-  rows: Array.isArray(args) ? args[1] : args
+  ...(args.length > 1 ? args[0] : {}),
+  rows: args.length > 1 ? args[1] : args[0]
 });
 
 /**
@@ -30,8 +30,8 @@ export const body = (...args:BodyArgs) => <TableBodyInput>({
  * ```
  */
 export const row = (...args:RowArgs) => <TableRowInput>({
-  ...(Array.isArray(args) ? args[0] : {}),
-  cells: Array.isArray(args) ? args[1] : args
+  ...(args.length > 1 ? args[0] : {}),
+  cells: args.length > 1 ? args[1] : args[0]
 })
 
 /**
@@ -44,7 +44,7 @@ export const row = (...args:RowArgs) => <TableRowInput>({
  * ```
  */
 export const head = (...args:HeadArgs) => <TableHeadInput>({
-  ...(Array.isArray(args) ? args[0] : {}),
-  cells: Array.isArray(args) ? args[1] : args
+  ...(args.length > 1 ? args[0] : {}),
+  cells: args.length > 1 ? args[1] : args[0]
 });
 

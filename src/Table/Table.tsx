@@ -54,6 +54,7 @@ export default function Table(props: TableProps) {
   const { head, body, loading, TableProps, TableHeadProps, TableBodyProps, TableRowProps, TableCellProps, sx, ...rest } = props;
   const { rows, ...bodyProps } = body;
   const { cells, ...headProps } = head;
+  console.log(body, head)
   const style = mergeSx([styles(), tableSx(sx)], { merge: 'deep' });
 
   return (
