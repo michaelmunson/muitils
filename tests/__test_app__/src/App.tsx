@@ -1,5 +1,5 @@
 
-import { Col } from "../../../../src/Flex"
+import { Col } from "../../../src/Flex"
 import TableTest from "./components/TableTest"
 import FormTest from "./components/FormTest"
 
@@ -8,7 +8,6 @@ function App() {
     <Col>
       <h1>TABLE</h1>  
       <TableTest />
-
       <h1>FORM</h1>  
       <FormTest />
     </Col>

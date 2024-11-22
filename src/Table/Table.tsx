@@ -9,7 +9,7 @@ const classes = tableSx.classes;
 function TableBodySkeleton(props:TableProps) {
   const { loadingBehavior, head:{cells}, TableRowProps, TableCellProps } = props;
   return <>
-    {Array(loadingBehavior?.rows ?? 5).fill(null).map((row, rowi) => (
+    {Array(loadingBehavior?.rows ?? 5).fill(null).map((_, rowi) => (
       <TableRow {...TableRowProps} key={`table-skeleton-${rowi}`}>
         {cells.map((_, i) => (
           <TableCell {...TableCellProps} key={`table-skeleton-${rowi}-${i}`}>

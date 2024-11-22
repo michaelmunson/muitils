@@ -1,4 +1,4 @@
-import Table, { row, head, body} from "../../../../../src/Table";
+import Table, { row, head, body} from "../../../../src/Table";
 
 function TableTest() {
   return (

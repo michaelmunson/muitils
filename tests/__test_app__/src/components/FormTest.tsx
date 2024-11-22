@@ -1,4 +1,4 @@
-import Form, {text, number, date, autocomplete, select} from "../../../../../src/Form";
+import Form, {text, number, date, autocomplete, select} from "../../../../src/Form";
 
 export default function FormTest() {
   return (
