@@ -8,7 +8,7 @@ type SelectInputProps<T> = SelectFormInput & {
   isValid:boolean,
 }
 
-export default function SelectInput<T>({ value, setValue, label, options, ...props }:SelectInputProps<T>) {
+export default function SelectInput<T>({ value, setValue, label, options, isValid: _, ...props }:SelectInputProps<T>) {
   const randId = useId();
   const id = props.id ?? randId;
 
@@ -23,8 +23,8 @@ export default function SelectInput<T>({ value, setValue, label, options, ...pro
         onChange={(e) => setValue(e.target.value as T)}
         {...props}
       >
-        {options.map((option) => (
-          <MenuItem value={option.value}>{option.label}</MenuItem>
+        {options.map((option, index) => (
+          <MenuItem key={index} value={option.value}>{option.label}</MenuItem>
         ))}
       </Select>
     </FormControl>

@@ -30,13 +30,10 @@ function Flex(props:FlexProps){
   const layout = getLayout(props);
   const direction = getDirection(props);
   
-  if ('row' in props) delete props.row;
-  if ('col' in props) delete props.col;
-  if ('layout' in props) delete props.layout;
-  Object.assign(props, layout);
-  
+  const {col:_, row:__, ...rest} = props as any;
+
   return (
-    <Stack direction={direction} {...props}>
+    <Stack direction={direction} {...{...layout, ...rest}}>
       {props.children}
     </Stack>
   )
