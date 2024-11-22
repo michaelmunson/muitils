@@ -38,7 +38,7 @@ function createSxFunction<Config extends SxConfig>(config: Config): SxFunction<C
   }
 }
 
-function createSxExtensions<Config extends SxConfig<{}>>(config: Config): SxExtensions<Config> {
+function createSxExtensions<Config extends SxConfig<object>>(config: Config): SxExtensions<Config> {
   return <const>{
     classes: config.classes.reduce((p, c) => ({ ...p, [c]: c }), {}) as Readonly<{ [K in Config["classes"][number]]: K; }>,
     definitions: config.definitions,

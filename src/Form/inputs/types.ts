@@ -1,4 +1,4 @@
-import { AutocompleteProps, FormControlProps, SelectProps, SlotProps, TextFieldProps, TextField } from "@mui/material";
+import { AutocompleteProps, FormControlProps, SelectProps, TextFieldProps } from "@mui/material";
 import { InputExtension } from "../types";
 import { DateInputProps } from "../../Input";
 

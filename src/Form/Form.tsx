@@ -60,27 +60,26 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
 
   useEffect(() => {
     if (onChange) onChange(formInputResult);
-    console.log(validateForm({inputs, result: formInputResult}))
-  }, [formInputResult])
+  }, [formInputResult, onChange])
 
-  const handleSetInputResult = (result: FormResult<T>, key: string[], value: any) => {
+  const handleSetInputResult = useCallback((result: FormResult<T>, key: string[], value: any) => {
     const newResult: any = { ...result };
     if (key.length === 1) newResult[key[0]] = value;
     else newResult[key[0]][key[1]] = value;
     setFormInputResult(newResult);
-  }
+  }, [setFormInputResult])
 
-  const handleCanSubmit = () => {
+  const handleCanSubmit = useCallback(() => {
     setIsValidate(true);
     return validateForm({ inputs, result: formInputResult });
-  }
+  }, [formInputResult, inputs])
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(() => {
     if (!handleCanSubmit()) return;
     setIsSubmitting(true);
-    await onSubmit(formInputResult);
+    onSubmit(formInputResult);
     setIsSubmitting(false);
-  }
+  }, [formInputResult, onSubmit, handleCanSubmit])
 
   const GenericFormInput = useCallback(function ({ keys, props, result }: { keys: string[]; props: TextFormInput<any> | CustomFormInput<any>, result: FormResult<T> }) {
     const value = keys.length === 1 ? result[keys[0]] : result[keys[0]][keys[1]];
@@ -112,7 +111,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
       )
     }
     throw new TypeError(`Incorrect props input for GenericFormInput "${keys.join('/')}"`)
-  }, [isValidate]);
+  }, [isValidate, handleSetInputResult])
 
   return getConfig().Form.transform(
     <Col gap={3} sx={formSx(styles(), _sx)} {...rest}>

@@ -8,8 +8,9 @@ type SelectInputProps<T> = SelectFormInput & {
   isValid:boolean,
 }
 
-export default function SelectInput<T>({ value, setValue, isValid, errorText, label, options, ...props }:SelectInputProps<T>) {
-  const id = props.id ?? useId();
+export default function SelectInput<T>({ value, setValue, label, options, ...props }:SelectInputProps<T>) {
+  const randId = useId();
+  const id = props.id ?? randId;
 
   return (
     <FormControl fullWidth>

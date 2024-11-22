@@ -44,7 +44,7 @@ export const number = (label:string, props?:Partial<TextFormInput<number>>) : Te
  * ))
  * ```
 */ 
-export const custom = <V, P extends {} = {}>(config:CustomFormInput<V, P>[0], renderer:CustomFormInput<V, P>[1]) : CustomFormInput<V, P> => [config, renderer];
+export const custom = <V, P extends object = object>(config:CustomFormInput<V, P>[0], renderer:CustomFormInput<V, P>[1]) : CustomFormInput<V, P> => [config, renderer];
 
 /**
  * @description Specifies a date input

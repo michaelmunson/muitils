@@ -1,4 +1,4 @@
-import { Autocomplete, AutocompleteProps, TextField } from "@mui/material";
+import { Autocomplete, TextField } from "@mui/material";
 import { AutocompleteFormInput } from "../types";
 import { validationModifier } from "../../utils";
 

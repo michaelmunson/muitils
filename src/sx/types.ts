@@ -42,7 +42,7 @@ type ClassEnums<T extends ClassList> = Readonly<{ [K in T[number]]: K }>
 type DefinitionValue<Args extends any[] = any[]> = MuiSxProps | ((...args: Args) => MuiSxProps)
 type DefinitionRecord = Readonly<Record<string, DefinitionValue>>
 
-type SxConfig<S extends SxConfigPart = {}> = {
+type SxConfig<S extends SxConfigPart = object> = {
   classes: S['classes'] extends ClassList ? S['classes'] : ClassList;
   definitions: S['definitions'] extends DefinitionRecord ? S['definitions'] : DefinitionRecord;
 }

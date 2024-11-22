@@ -36,7 +36,7 @@ export function isFormInputRecord(props:any) : props is FormInputRecord {
 
 
 export function deriveInitialFormInputGroupResult<T extends FormInputGroup>(group:T) : FormResult<T> {
-  let result:FormResult<T> = {} as any;
+  const result:FormResult<T> = {} as any;
   for (const key in group){
     const value = group[key];
     if (isFormInputRecord(value)){
@@ -54,7 +54,7 @@ export function getValueFromKeys<T>(keys:string[], result:FormResult<T>){
   return keys.length === 1 ? result[keys[0]] : (result as any)[keys[0]][keys[1]];
 }
 
-export function defaultValidate(value:any){return !!value};
+export function defaultValidate(value:any){return !!value}
 
 export function validateForm<T>(form:{inputs:FormInputGroup | FormInputRecord, result:FormResult<T> | FormInputRecordResult<T>}) : boolean {
   const {inputs, result} = form;

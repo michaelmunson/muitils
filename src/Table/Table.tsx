@@ -1,20 +1,18 @@
 import { Paper, Table as MuiTable, TableBody, TableCell, TableContainer, TableHead, TableRow, Skeleton } from "@mui/material";
 import tableSx, { styles } from "./sx";
-import { TableProps, TableCellInput } from "./types";
+import { TableProps } from "./types";
 import { mergeSx } from "../sx";
 import { getConfig } from "../config";
-import { body, row } from "./utils";
-import { head } from "./utils";
 
 const classes = tableSx.classes;
 
 function TableBodySkeleton(props:TableProps) {
-  const { loadingBehavior, head:{cells}, ...rest } = props;
+  const { loadingBehavior, head:{cells}, TableRowProps, TableCellProps } = props;
   return <>
     {Array(loadingBehavior?.rows ?? 5).fill(null).map((row, rowi) => (
-      <TableRow key={`table-skeleton-${rowi}`}>
-        {cells.map((cell, i) => (
-          <TableCell key={`table-skeleton-${rowi}-${i}`}>
+      <TableRow {...TableRowProps} key={`table-skeleton-${rowi}`}>
+        {cells.map((_, i) => (
+          <TableCell {...TableCellProps} key={`table-skeleton-${rowi}-${i}`}>
             <Skeleton
               width={'90%'}
               height={'20px'}
@@ -54,7 +52,6 @@ export default function Table(props: TableProps) {
   const { head, body, loading, TableProps, TableHeadProps, TableBodyProps, TableRowProps, TableCellProps, sx, ...rest } = props;
   const { rows, ...bodyProps } = body;
   const { cells, ...headProps } = head;
-  console.log(body, head)
   const style = mergeSx([styles(), tableSx(sx)], { merge: 'deep' });
 
   return (
