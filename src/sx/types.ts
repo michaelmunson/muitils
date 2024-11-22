@@ -1,4 +1,4 @@
-import { type SxProps as MuiSxProps } from "@mui/material";
+import { Theme, type SxProps as MuiSxProps } from "@mui/material";
 
 // Utility type to convert union to intersection
 type UnionToIntersection<U> = 
@@ -71,6 +71,8 @@ type SxArgs<Config extends SxConfig> = (
   (
     MuiSxProps<any> | 
     MuiSxProps<any>[] | 
+    MuiSxProps<Theme> |
+    MuiSxProps<Theme>[] |
     keyof Config['definitions'] | 
     SxSelectorRecord<Config> |
     undefined

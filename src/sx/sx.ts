@@ -168,7 +168,7 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart>(
 }
 
 /**
- * @description Merges an array of SxProps
+ * @description Merges an array of MuiSxProps
  * @importing
  * ```tsx
  * import {mergeSx} from 'muitils'

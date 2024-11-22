@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import {createSx} from '../sx';
+import {createSx, MuiSxProps} from '../sx';
 import { DatePickerProps } from '@mui/x-date-pickers/DatePicker';
 
 const sx = createSx({})
@@ -12,7 +12,7 @@ const DateInputSx = sx({
 })
 
 
-type DateInputProps = DatePickerProps<any> & {
+type DateInputProps = Omit<DatePickerProps<any>, 'sx'> & {sx?: MuiSxProps} & {
   value?: string | number | Date | dayjs.Dayjs
 };
 
