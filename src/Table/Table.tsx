@@ -65,10 +65,7 @@ export default function Table(props: TableProps) {
           </TableRow>
         </TableHead>
         <TableBody {...TableBodyProps} {...bodyProps} className={classes.table_body}>
-          {loading ? (
-            <TableBodySkeleton {...props} />
-          ) : (
-            rows.map(({cells, ...props}, i) => (
+            {rows.map(({cells, ...props}, i) => (
               <TableRow key={`table-body-row-${i}`} {...TableRowProps} {...props} className={classes.table_row}>
                 {cells.map((cell, j) => (
                 <TableCell
@@ -83,7 +80,8 @@ export default function Table(props: TableProps) {
               ))}
               </TableRow>
             ))
-          )}
+          }
+          {loading && <TableBodySkeleton {...props} />}
         </TableBody>
       </MuiTable>
     </TableContainer >
