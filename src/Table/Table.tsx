@@ -35,8 +35,10 @@ function TableBodySkeleton(props:TableProps) {
  *     {value: 'Age'}
  *   )} 
  *   data={body(
- *     row({sx: {backgroundColor: 'red'}}, {value: 'Michael'}, {value: 34}),
- *     row({sx: {backgroundColor: 'blue'}}, {value: 'Sarah'}, {value: 32})
+ *     row({sx:{color:'red'}}, [
+ *       {value: 'Michael'}, {value: 142}
+ *     ]),
+ *     row([{value: 'Mel'}, {value: 141}])
  *   )}
  *   loadingBehavior={{rows: 5, SkeletonProps: {variant: 'text'}}}
  *   TableProps={{sx: {maxHeight: '500px'}}}
