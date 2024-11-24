@@ -2,7 +2,8 @@ import { Button, Icon, mergeSx } from "../";
 import { ButtonProps } from "@mui/material";
 
 type ButtonPropsExtension = {
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
   inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
 }
 
@@ -25,7 +26,7 @@ export type FileInputProps = Omit<ButtonProps, keyof ButtonPropsExtension> & But
  * ```
  */
 export default function FileInput(props: FileInputProps) {
-  const { onChange, sx, inputProps, ...rest } = props;
+  const { onChange, sx, inputProps, label, ...rest } = props;
   return (
     <Button
       component="label"
@@ -48,7 +49,7 @@ export default function FileInput(props: FileInputProps) {
       }], { merge: 'deep' })}
       {...rest}
     >
-      Upload files
+      {label || 'Upload files'}
       <input type="file" hidden multiple onChange={onChange} {...inputProps} />
     </Button>
   );
