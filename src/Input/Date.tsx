@@ -11,7 +11,6 @@ const DateInputSx = sx({
   width: '100%'
 })
 
-
 type DateInputProps = Omit<DatePickerProps<any>, 'sx'> & {sx?: MuiSxProps} & {
   value?: string | number | Date | dayjs.Dayjs
 };

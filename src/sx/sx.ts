@@ -186,8 +186,8 @@ export function extendSx<SxExtendee, ExtConfig extends SxConfigPart>(
  * ```
  */
 
-export function mergeSx(sx: MuiSxProps[], config:{merge: 'deep' | 'shallow'} = {merge: 'deep'}) : Exclude<MuiSxProps, undefined | null> {
-  return sx.reduce((p, c) => config.merge === 'deep' ? deepMerge(p, c) : shallowMerge(p, c), {}) as any;
+export function mergeSx(sx: (MuiSxProps<any> | undefined | null)[], config:{merge: 'deep' | 'shallow'} = {merge: 'deep'}) : Exclude<MuiSxProps, undefined | null> {
+  return sx.filter(Boolean).reduce((p, c) => config.merge === 'deep' ? deepMerge(p, c) : shallowMerge(p, c), {}) as any;
 }
 
 export type * from './types';
