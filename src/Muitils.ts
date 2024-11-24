@@ -36,11 +36,3 @@ export class Muitils {
    */
   static configure = setConfig;
 }
-
-Muitils.configure({
-  Form: {
-    props: {
-      className: 'test'
-    }
-  }
-})
