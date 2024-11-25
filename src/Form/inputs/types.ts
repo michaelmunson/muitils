@@ -12,8 +12,9 @@ export type DateFormInput = Omit<DateInputProps, "onChange"> & InputExtension<st
   label: string;
 }
 
-export type AutocompleteFormInput = Partial<Omit<AutocompleteProps<any, any, any, any>, "onChange">> & InputExtension<string> & {
+export type AutocompleteFormInput<T extends any | any[]> = Partial<Omit<AutocompleteProps<T, T extends any[] ? true : false, any, any>, "onChange"|"options">> & InputExtension<T> & {
   label: string;
+  options?: T extends any[] ? T : T[];
 }
 
 export type SelectFormInput = Omit<SelectProps, "onChange"> & InputExtension<string> & {

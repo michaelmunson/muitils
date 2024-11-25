@@ -2,23 +2,23 @@ import { Autocomplete, TextField } from "@mui/material";
 import { AutocompleteFormInput } from "../types";
 import { validationModifier } from "../../utils";
 
-type AutocompleteInputProps = AutocompleteFormInput & {
-  value:string,
-  setValue:(value:string) => void,
+type AutocompleteInputProps<T extends any | any[]> = AutocompleteFormInput<T> & {
+  value:T,
+  setValue:(value:T) => void,
   isValid:boolean,
   label:string,
 }
 
-export default function AutocompleteInput({value, setValue, isValid, errorText, label, ...props}:AutocompleteInputProps){
+export default function AutocompleteInput<T extends any | any[] = any>({value, setValue, isValid, errorText, label, ...props}:AutocompleteInputProps<T>){
   const loading = props.loading ?? Boolean(props.options);
-  const options = props.options ?? [] as readonly {id:string, label:string}[];
+  const options = props.options ?? [] as any[];
 
   return (
     <Autocomplete
       disablePortal
       value={value}
-      onChange={(_, v) => {
-        if (v) setValue(v.value ? v.value : v)
+      onChange={(_, v:any) => {
+        if (v) setValue(v as T)
       }}
       loading={loading}
       options={options}

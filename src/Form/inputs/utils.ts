@@ -62,7 +62,7 @@ export const date = (label:string, props?:Partial<DateFormInput>) => custom<stri
  * autocomplete('Pet Fish', {options:['Goldfish', 'Tropical Fish', 'Catfish'].map(v=>({value:v, label:v}))})
  * ```
 */ 
-export const autocomplete = (label:string, props?:Partial<AutocompleteFormInput>) => custom<string, AutocompleteFormInput>({label, value:'', ...props}, AutocompleteInput);
+export const autocomplete = <T extends any | any[]>(label:string, props:Omit<AutocompleteFormInput<T>, 'label'>) => custom<T, AutocompleteFormInput<T>>({label, ...props}, AutocompleteInput);
 
 /**
  * @description Specifies a select input
@@ -94,6 +94,6 @@ export const form = <T extends FormInputGroup>(inputs:T) : T => inputs;
 /* CHECKERS */
 export const isDateInput = (input:any) : input is DateFormInput => input?.['::type'] === "DATE_INPUT";
 export const isTextInput = (input:any) : input is TextFormInput => input?.['::type'] === "TEXT_INPUT";
-export const isAutocompleteInput = (input:any) : input is AutocompleteFormInput => input?.['::type'] === "AUTOCOMPLETE_INPUT";
+export const isAutocompleteInput = (input:any) : input is AutocompleteFormInput<any> => input?.['::type'] === "AUTOCOMPLETE_INPUT";
 export const isSelectInput = (input:any) : input is SelectFormInput => input?.['::type'] === "SELECT_INPUT";
 export const isCustomInput = (input:any) : input is CustomFormInput => Array.isArray(input);

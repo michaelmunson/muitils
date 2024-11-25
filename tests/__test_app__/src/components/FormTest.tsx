@@ -12,8 +12,8 @@ export default function FormTest() {
         }),
         age: number('Age', {input:{min: 0, max: 100}, validate:v=>v>=0}),
         petFish: autocomplete('Pet Fish', {
-          options:['Goldfish', 'Tropical Fish', 'Catfish']
-          .map(v=>({value:v, label:v}))
+          value: {id: 'asd', label: 'asd'},
+          options:[{id: 'asd', label: 'asd'}, {id: 'qwe', label: 'qwe'}]
         }),
         birthday: date('Birthday', {
           validate: v=> Boolean(v && typeof v === 'string')
