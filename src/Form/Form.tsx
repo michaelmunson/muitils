@@ -74,10 +74,10 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
     return validateForm({ inputs, result: formInputResult });
   }, [formInputResult, inputs])
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = useCallback(async () => {
     if (!handleCanSubmit()) return;
     setIsSubmitting(true);
-    onSubmit(formInputResult);
+    await onSubmit(formInputResult);
     setIsSubmitting(false);
   }, [formInputResult, onSubmit, handleCanSubmit])
 
