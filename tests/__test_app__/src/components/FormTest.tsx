@@ -15,6 +15,10 @@ export default function FormTest() {
           value: {id: 'asd', label: 'asd'},
           options:[{id: 'asd', label: 'asd'}, {id: 'qwe', label: 'qwe'}]
         }),
+        autoCompleteArray: autocomplete<{id:string, label:string}[]>('Auto Complete Array', {
+          value: [{id: 'asd', label: "ASD"}],
+          options:[{id: 'asd', label: "ASD"}, {id: 'qwe', label: "QWE"}]
+        }),
         birthday: date('Birthday', {
           validate: v=> Boolean(v && typeof v === 'string')
         }),

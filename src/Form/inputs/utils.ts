@@ -62,7 +62,7 @@ export const date = (label:string, props?:Partial<DateFormInput>) => custom<stri
  * autocomplete('Pet Fish', {options:['Goldfish', 'Tropical Fish', 'Catfish'].map(v=>({value:v, label:v}))})
  * ```
 */ 
-export const autocomplete = <T extends any | any[]>(label:string, props:Omit<AutocompleteFormInput<T>, 'label'>) => custom<T, AutocompleteFormInput<T>>({label, ...props}, AutocompleteInput);
+export const autocomplete = <T>(label:string, props:Omit<AutocompleteFormInput<T>, 'label'>) => custom<T, AutocompleteFormInput<T>>({label, ...props}, AutocompleteInput);
 
 /**
  * @description Specifies a select input

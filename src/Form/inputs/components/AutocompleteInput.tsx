@@ -9,14 +9,14 @@ type AutocompleteInputProps<T extends any | any[]> = AutocompleteFormInput<T> & 
   label:string,
 }
 
-export default function AutocompleteInput<T extends any | any[] = any>({value, setValue, isValid, errorText, label, ...props}:AutocompleteInputProps<T>){
+export default function AutocompleteInput<T>({value, setValue, isValid, errorText, label, ...props}:AutocompleteInputProps<T>){
   const loading = props.loading ?? Boolean(props.options);
   const options = props.options ?? [] as any[];
 
   return (
     <Autocomplete
       disablePortal
-      value={value}
+      value={value as any}
       onChange={(_, v:any) => {
         if (v) setValue(v as T)
       }}
