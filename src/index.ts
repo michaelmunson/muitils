@@ -24,6 +24,9 @@ export {type TableProps, default as Table } from './Table';
 // Input
 export * from './Input';
 
+// Utils
+export * from './utils';
+
 // Muitils
 import {Muitils} from './Muitils';
 

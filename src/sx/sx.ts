@@ -1,5 +1,5 @@
 import { MuiSxProps, SxConfig, SxConfigPart, SxConfigDefault, SxConfigMerge, SxFunction, SxExtensions, SxArgs, Sx } from "./types";
-import { deepMerge, shallowMerge } from "../utils";
+import { deepMerge, shallowMerge } from "../internal.utils";
 
 const DEFAULT_CONFIG: SxConfig = {
   classes: [] as const,

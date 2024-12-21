@@ -1,6 +1,6 @@
 {
   "name": "muitils",
-  "version": "3.13.0",
+  "version": "3.14.0",
   "description": "A library of useful MUI component wrappers and utilities.",
   "main": "src/index.ts",
   "files": [
@@ -15,7 +15,8 @@
     "./Spinner": "./src/Spinner/index.ts",
     "./Form": "./src/Form/index.ts",
     "./Table": "./src/Table/index.ts",
-    "./sx": "./src/sx/index.ts"
+    "./sx": "./src/sx/index.ts",
+    "./utils": "./src/utils/index.ts"
   },
   "scripts": {
     "create-docs": "typedoc --out ./docs ./src/**/index.ts ./src/Muitils.ts",
