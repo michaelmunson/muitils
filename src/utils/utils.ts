@@ -28,7 +28,7 @@ import React from "react";
   }
  * ```
  */
-export function createNestedComponent<T extends React.FC, U extends Record<string, React.FC>>(target: T, source: U): T & U {
+export function createdNestedComponent<T extends React.FC<any>, U extends Record<string, React.FC<any>>>(target: T, source: U): T & U {
   Object.assign(target, source);
   return target as T & U;
 }
