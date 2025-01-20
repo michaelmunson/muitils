@@ -1,5 +1,4 @@
-import { Button, Icon, mergeSx } from "../";
-import { ButtonProps } from "@mui/material";
+import { Button, ButtonProps, Icon, mergeSx } from "../";
 
 type ButtonPropsExtension = {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -8,7 +7,6 @@ type ButtonPropsExtension = {
 }
 
 export type FileInputProps = Omit<ButtonProps, keyof ButtonPropsExtension> & ButtonPropsExtension
-
 /**
  * @description a [Button](https://michaelmunson.github.io/muitils/functions/Button.Button.html) wrapper around an `<input type="file"/>` that allows the user to upload files
  * @importing
