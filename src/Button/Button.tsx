@@ -3,7 +3,7 @@ import Icon, {IconProps, IconName} from "../Icon";
 
 type ButtonProps = MuiButtonProps & {
   /**@description if `true`, displays a loading spinner inside the button.*/
-  loading?:boolean,
+  loading?:boolean|null,
   /**@description text to display when the button is in a loading state.*/
   loadingText?: string,
   /**@description creates an <IconButton/> with the specified `IconName` or `IconProps` object*/
