@@ -8,4 +8,4 @@ npm install muitils
 ```
 
 ## [Documentation](https://michaelmunson.github.io/muitils/)
-Please refer to the [docs](https://michaelmunson.github.io/muitils/functions/Button.html) for usage examples.
+Please refer to the [docs](https://michaelmunson.github.io/muitils) for usage examples.
