@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react"
-import {Col, Row} from "../Flex"
+import { useCallback, useEffect, useId, useState } from "react"
+import { Col, Row } from "../Flex"
 import { type FormProps, FormInputGroup, FormResult } from "./types";
 import { TextInput, CustomInput, TextFormInput, CustomFormInput, DateInput } from "./inputs";
 import { defaultValidate, deriveInitialFormInputGroupResult, isCustomInput, isFormInput, isFormInputRecord, validateForm } from "./utils";
@@ -51,6 +51,8 @@ import { getConfig } from "../config";
  * ```
  */
 export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
+  const id = useId();
+  const submitButtonId = `${id}-submit-button`;
   const { inputs, onSubmit, onChange, sx: _sx, SubmitProps, ...rest } = props;
   const WrapperProps = SubmitProps?.WrapperProps;
   const ButtonProps = SubmitProps?.ButtonProps;
@@ -95,17 +97,17 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
       return <DateInput
         {...props}
         value={value}
-        setValue={(v:any) => handleSetInputResult(result, keys, v)}
+        setValue={(v: any) => handleSetInputResult(result, keys, v)}
       />
     }
     else if (isCustomInput(props)) {
-      const [{validate = defaultValidate, ...rest}, input] = props;
+      const [{ validate = defaultValidate, ...rest }, input] = props;
       return (
         <CustomInput
           {...rest}
           input={input}
           value={value}
-          setValue={(v:any) => handleSetInputResult(result, keys, v)}
+          setValue={(v: any) => handleSetInputResult(result, keys, v)}
           isValid={!isValidate || (isValidate && validate(value))}
         />
       )
@@ -114,18 +116,34 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
   }, [isValidate, handleSetInputResult])
 
   return getConfig().Form.transform(
-    <Col gap={3} sx={formSx(styles(), _sx)} {...rest}>
+    <Col id={id} gap={3} sx={formSx(styles(), _sx)} {...rest}>
       {Object.entries(inputs).map((entry, index) => {
         const [key, value] = entry;
+        const toProps = <T extends Record<string, any>>(props: T) : T => {
+          if (index === Object.keys(inputs).length - 1) return {
+            onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => {
+              if (e.key === 'Enter') {
+                try {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const submitButton = document.getElementById(submitButtonId);
+                  if (submitButton) submitButton.click();
+                } catch (error) {}
+              }
+            },
+            ...props
+          }
+          return props;
+        }
         if (isFormInput(value) || isCustomInput(value)) return (
-          <GenericFormInput key={`form-input-${index}`} keys={[key]} props={value} result={formInputResult} />
+          <GenericFormInput key={`form-input-${index}`} keys={[key]} props={toProps(value)} result={formInputResult} />
         );
         else if (isFormInputRecord(value)) return (
           <Row key={`form_input_row-${index}`} className={`form_input_row`}>
             {Object.entries(value).map((entry2, index2) => {
               const [key2, value2] = entry2;
               return (
-                <GenericFormInput key={`form-input-${index}-${index2}`} keys={[key, key2]} props={value2} result={formInputResult} />
+                <GenericFormInput key={`form-input-${index}-${index2}`} keys={[key, key2]} props={toProps(value2)} result={formInputResult} />
               )
             })}
           </Row>
@@ -134,6 +152,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
       })}
       <Row center={'x'} {...WrapperProps}>
         <Button
+          id={submitButtonId}
           variant="contained"
           color="success"
           onClick={handleSubmit}

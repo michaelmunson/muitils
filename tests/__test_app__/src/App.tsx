@@ -6,7 +6,7 @@ import FormTest from "./components/FormTest"
 
 function App() {
   return (
-    <Col>
+    <Col gap={3}>
       <h1>TABLE</h1>  
       <TableTest />
       <h1>FORM</h1>  
