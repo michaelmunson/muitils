@@ -90,7 +90,6 @@ export const select = (label:string, props?:Partial<SelectFormInput>) => custom<
  */
 export const form = <T extends FormInputGroup>(inputs:T) : T => inputs;
 
-
 /* CHECKERS */
 export const isDateInput = (input:any) : input is DateFormInput => input?.['::type'] === "DATE_INPUT";
 export const isTextInput = (input:any) : input is TextFormInput => input?.['::type'] === "TEXT_INPUT";

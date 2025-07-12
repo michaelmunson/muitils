@@ -22,6 +22,11 @@ export default function AutocompleteInput<T>({value, setValue, isValid, errorTex
       }}
       loading={loading}
       options={options}
+      getOptionLabel={(option) : string => {
+        if (typeof option === 'string') return option;
+        else if (typeof option === 'object' && option !== null && 'label' in option) return option.label as string;
+        else return '';
+      }}
       renderInput={(params: any) => (
         <TextField {...params} label={label} {...validationModifier(isValid, errorText ?? "")} />
       )}

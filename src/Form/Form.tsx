@@ -18,6 +18,15 @@ import { getConfig } from "../config";
  * import Form, {...helpers} from 'muitils/Form'
  * ```
  * <br><hr><br>
+ * ## Props
+ * - `inputs` - The inputs to be used in the form.
+ * - `onSubmit` - The function to be called when the form is submitted.
+ * - `onChange` - The function to be called when the form is changed.
+ * - `sx` - The style to be applied to the form.
+ * - `SubmitProps` - The props to be applied to the submit button.
+ * - `isValidate` - Whether to validate the form.
+ * 
+ * ## Basic Usage
  * @example
  * ```tsx
  * import Form, {text, number, select, autocomplete, date} from 'muitils/Form';
@@ -45,20 +54,85 @@ import { getConfig } from "../config";
  *   console.log(v.lastName); // string
  *   console.log(v.gender); // 'Male' | 'Female' | 'Other'
  *   console.log(v.age); // number
- *   console.log(v.petFish); // string[]
+ *   console.log(v.petFish); // string | {id:string, label:string}
  *   console.log(v.birthday); // string (iso date string)
  * }}/>
+ * ```
+ * ## Custom Inputs
+ * Custom inputs are useful when you need to create a custom input that is not supported by the library.
+ * @example
+ * ```tsx
+ * export function CustomInputForm(){
+    const [isValidate, setIsValidate] = useState(false);
+    return (
+      <Form
+        inputs={{
+          email: custom({
+            value: '',
+            validate: (v:string) => v.includes('@')
+          }, ({value, setValue, isValid}) => (
+            <div>
+              <label>Email</label>
+              <input 
+                type="text" 
+                value={value} 
+                onChange={e => setValue(e.target.value)} 
+                onBlur={() => setIsValidate(true)}
+              />
+              {!isValid && <span>Invalid email</span>}
+            </div>
+          ))
+        }}
+        onSubmit={v => alert(JSON.stringify(v, null, 2))}
+        isValidate={isValidate}
+      />
+    )
+  }
+ * ```
+ * ## Controlled Inputs
+ * Controlled inputs are useful when you need to control the value of an input from outside of the form.
+ * @example
+ * ```tsx
+ * export function ControlledForm(){
+    const [password, setPassword] = useState('');
+    const [isValidate, setIsValidate] = useState(false);
+    return (
+      <Form
+        inputs={{
+          email: text('Email'),
+          password: text('Password', { 
+            value: password,
+            setValue: v => setPassword(v),
+            input: { type: 'password' }, 
+          }),
+          confirmPassword: text('Confirm Password', { 
+            validate: v => v === password,
+            errorText: 'Passwords do not match',
+            onBlur: () => setIsValidate(true),
+            input: { type: 'password' },
+          }),
+        }}
+        onSubmit={v => alert(JSON.stringify(v, null, 2))}
+        // onChange={({password}) => setPassword(password)}
+        isValidate={isValidate}
+      />
+    )
+  }
  * ```
  */
 export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
   const id = useId();
   const submitButtonId = `${id}-submit-button`;
-  const { inputs, onSubmit, onChange, sx: _sx, SubmitProps, ...rest } = props;
+  const { inputs, onSubmit, onChange, sx: _sx, SubmitProps, isValidate: _isValidate, ...rest } = props;
   const WrapperProps = SubmitProps?.WrapperProps;
   const ButtonProps = SubmitProps?.ButtonProps;
   const [formInputResult, setFormInputResult] = useState<FormResult<T>>(deriveInitialFormInputGroupResult(inputs));
-  const [isValidate, setIsValidate] = useState(false);
+  const [isValidate, setIsValidate] = useState(_isValidate ?? false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    setIsValidate(_isValidate ?? false);
+  }, [_isValidate])
 
   useEffect(() => {
     if (onChange) onChange(formInputResult);
@@ -85,15 +159,21 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
 
   const GenericFormInput = useCallback(function ({ keys, props, result }: { keys: string[]; props: TextFormInput<any> | CustomFormInput<any>, result: FormResult<T> }) {
     const value = keys.length === 1 ? result[keys[0]] : result[keys[0]][keys[1]];
+    console.log(props);
     if (isTextInput(props)) {
+      const {setValue:__set_value__, ...rest} = props;
       return <TextInput
-        {...props}
+        {...rest}
         value={value}
-        setValue={v => handleSetInputResult(result, keys, v)}
+        setValue={v => {
+          handleSetInputResult(result, keys, v);
+          if (__set_value__) __set_value__(v);
+        }}
         isValidate={isValidate}
       />
     }
     else if (isDateInput(props)) {
+
       return <DateInput
         {...props}
         value={value}
@@ -101,7 +181,7 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
       />
     }
     else if (isCustomInput(props)) {
-      const [{ validate = defaultValidate, ...rest }, input] = props;
+      const [{ validate = defaultValidate, ...rest }, input] = [props[0], props[1]];
       return (
         <CustomInput
           {...rest}

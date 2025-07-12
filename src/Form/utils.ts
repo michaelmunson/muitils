@@ -27,7 +27,7 @@ export function isFormInput<T>(props:any) : props is TextFormInput<T> {
 }
 
 export function isCustomInput<T>(props:any) : props is CustomFormInput<T> {
-  return Array.isArray(props);
+  return props[0] && props[1];
 }
 
 export function isFormInputRecord(props:any) : props is FormInputRecord {
@@ -85,4 +85,8 @@ export function validateForm<T>(form:{inputs:FormInputGroup | FormInputRecord, r
 export const validationModifier = (isValid:boolean, errorText:string) => {
   if (!isValid) return {error: true, helperText: errorText }
   return {};
+}
+
+export const createFormInputs = <T extends FormInputGroup>(inputs:T) => {
+  return inputs;
 }

@@ -5,6 +5,7 @@ import { DateInputProps } from "../../Input";
 export type TextFormInput<T = any> = Omit<TextFieldProps, "onChange"> & InputExtension<T> & {
   label: string;
   input?: Required<TextFieldProps>['slotProps']['htmlInput'];
+  setValue?: (value: T) => void;
   ['::type']: "TEXT_INPUT";
 }
 

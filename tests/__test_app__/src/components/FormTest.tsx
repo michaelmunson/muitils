@@ -1,8 +1,14 @@
-import { Divider } from "@mui/material";
+import { useEffect, useState } from "react";
 import { Col } from "../../../../src";
-import Form, { text, number, date, autocomplete, select } from "../../../../src/Form";
+import Form, { text, number, date, autocomplete, select, form, custom } from "../../../../src/Form";
+import { useLog } from "../Log";
 
-export default function FormTest() {
+const onSubmit = async (v:any) => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  alert(JSON.stringify(v, null, 2));
+}
+
+export function FormTest() {
   return (
     <Col gap={3}>
       <Form
@@ -15,12 +21,9 @@ export default function FormTest() {
           }),
           age: number('Age', { input: { min: 0, max: 100 }, validate: v => v >= 0 }),
           petFish: autocomplete('Pet Fish', {
-            value: { id: 'asd', label: 'asd' },
-            options: [{ id: 'asd', label: 'asd' }, { id: 'qwe', label: 'qwe' }]
-          }),
-          autoCompleteArray: autocomplete<{ id: string, label: string }[]>('Auto Complete Array', {
-            value: [{ id: 'asd', label: "ASD" }],
-            options: [{ id: 'asd', label: "ASD" }, { id: 'qwe', label: "QWE" }]
+            value: [{value: 'Goldfish', label: 'Goldfish'}],
+            options: ['Goldfish', 'Tropical Fish', 'Catfish']
+              .map(v => ({ value: v, label: v }))
           }),
           birthday: date('Birthday', {
             validate: v => Boolean(v && typeof v === 'string')
@@ -30,35 +33,64 @@ export default function FormTest() {
             world: text('World')
           }
         }}
-        onSubmit={(v) => {
-          alert(JSON.stringify(v, null, 2))
-        }}
+        onSubmit={onSubmit}
         onChange={(v) => {
           console.log(JSON.stringify(v, null, 2))
         }}
-      />
-      <Divider/>
-      <Form
-        inputs={{
-          firstName: text('First Name'),
-          lastName: text('Last Name'),
-        }}
-        SubmitProps={{
-          WrapperProps: {
-            sx: {
-              display: 'flex',
-            }
-          },
-          ButtonProps: {
-            sx: {
-              backgroundColor: 'red',
-            }
-          }
-        }}
-        onSubmit={(v) => {
-          alert(JSON.stringify(v, null, 2))
-        }}
-      />
+      />      
     </Col>
+  )
+}
+
+export function FormTest2(){
+  const [isValidate, setIsValidate] = useState(false);
+  return (
+    <Form
+      inputs={{
+        email: custom({
+          value: '',
+          validate: (v:string) => v.includes('@')
+        }, ({value, setValue, isValid}) => (
+          <div>
+            <label>Email</label>
+            <input 
+              type="text" 
+              value={value} 
+              onChange={e => setValue(e.target.value)} 
+              onBlur={() => setIsValidate(true)}
+            />
+            {!isValid && <span>Invalid email</span>}
+          </div>
+        ))
+      }}
+      onSubmit={v => alert(JSON.stringify(v, null, 2))}
+      isValidate={isValidate}
+    />
+  )
+}
+
+export function ControlledFormTest(){
+  const [password, setPassword] = useState('');
+  const [isValidate, setIsValidate] = useState(false);
+  return (
+    <Form
+      inputs={{
+        email: text('Email'),
+        password: text('Password', { 
+          value: password,
+          setValue: v => setPassword(v),
+          input: { type: 'password' }, 
+        }),
+        confirmPassword: text('Confirm Password', { 
+          validate: v => v === password,
+          errorText: 'Passwords do not match',
+          onBlur: () => setIsValidate(true),
+          input: { type: 'password' },
+        }),
+      }}
+      onSubmit={v => alert(JSON.stringify(v, null, 2))}
+      // onChange={({password}) => setPassword(password)}
+      isValidate={isValidate}
+    />
   )
 }
