@@ -159,7 +159,6 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
 
   const GenericFormInput = useCallback(function ({ keys, props, result }: { keys: string[]; props: TextFormInput<any> | CustomFormInput<any>, result: FormResult<T> }) {
     const value = keys.length === 1 ? result[keys[0]] : result[keys[0]][keys[1]];
-    console.log(props);
     if (isTextInput(props)) {
       const {setValue:__set_value__, ...rest} = props;
       return <TextInput
