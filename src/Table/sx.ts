@@ -21,9 +21,9 @@ const styles = () => {
       minWidth: 450,
     },
     '& .table_head' : { 
-      background: '#ededed !important', 
+      background: '#ededed', 
       '& th': {
-        background: '#717171 !important', 
+        background: '#717171', 
         color:'white',
         textTransform: 'uppercase',
         fontWeight: 'bold',
