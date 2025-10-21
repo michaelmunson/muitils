@@ -1,16 +1,7 @@
-import { CrumbsProps } from "./Crumbs";
+import { Config, getConfig } from "./config";
 import React from "react";
 
-export const DEFAULT_CONFIG:MuitilsConfig = {
-  Crumbs: {
-    navigation: {
-      preferred: 'anchor'
-    }
-  }
-}
-
-export type MuitilsConfig = {
-  Crumbs?:Pick<CrumbsProps, 'navigation'>
-}
+export const DEFAULT_CONFIG:MuitilsConfig = getConfig();
+export type MuitilsConfig = Config
 
 export const MuitilsConfigProvider = React.createContext<MuitilsConfig>(DEFAULT_CONFIG);

@@ -36,8 +36,10 @@ const createConfig = <T extends {sx:S, props:P}, S extends ConfigSx<any> = any, 
 const CONFIG = <const>{
   Form: createConfig<{sx:typeof formSx, props:FormProps<any>}>(),
   Table: createConfig<{sx:typeof tableSx, props:TableProps}>(),
-  Crumbs: createConfig<{sx:typeof crumbsSx, props:CrumbsProps}>(),
+  Crumbs: {...createConfig<{sx:typeof crumbsSx, props:CrumbsProps}>(), navigation:{preferred: 'anchor'} as CrumbsProps['navigation']},
 }
+
+export type Config = DeepPartial<typeof CONFIG>;
 
 /**
  * @description Returns the current configuration
