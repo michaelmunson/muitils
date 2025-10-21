@@ -1,7 +1,6 @@
 import { Breadcrumbs, Link, Skeleton } from "@mui/material";
 import { Row } from "../Flex";
 import { Icon } from "../Icon";
-import React from "react";
 import { CrumbItem, CrumbsProps } from "./types";
 import { useMuitilsConfig } from "../hooks";
 import crumbsSx, { styles } from "./sx";

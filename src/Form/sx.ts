@@ -14,7 +14,7 @@ export const styles = (configSx=getConfig().Form.sx) => (
       },
       '& .submit_button' : {borderRadius: '20px', width: '200px', fontWeight:'bold', fontSize: '1.1rem', mt:2}
     }),
-    getConfig().Form.sx
+    configSx
   ], {merge: 'deep'})
 )
 
