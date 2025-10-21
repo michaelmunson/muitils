@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
 import { Col } from "../../../src";
-import { Divider, Typography } from "@mui/material";
 
 export const useLog = () => {
   const Log = () => <Col id="log" gap={3} sx={{backgroundColor: 'black', color: 'white', padding: 3, borderRadius: 3}}></Col>

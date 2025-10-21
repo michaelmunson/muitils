@@ -1,6 +1,6 @@
 {
   "name": "muitils",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "A library of useful MUI component wrappers and utilities.",
   "main": "src/index.ts",
   "files": [
@@ -15,6 +15,7 @@
     "./Spinner": "./src/Spinner/index.ts",
     "./Form": "./src/Form/index.ts",
     "./Table": "./src/Table/index.ts",
+    "./Crumbs": "./src/Crumbs/index.ts",
     "./sx": "./src/sx/index.ts",
     "./utils": "./src/utils/index.ts"
   },
@@ -23,7 +24,8 @@
     "test-build": "cd tests/__test_app__ && npm run build",
     "test": "jest",
     "lint": "eslint src/*",
-    "serve-test": "cd tests/__test_app__ && npm run dev"
+    "serve-test": "cd tests/__test_app__ && npm run dev",
+    "deploy": "./deploy"
   },
   "author": "Michael Munson",
   "license": "ISC",

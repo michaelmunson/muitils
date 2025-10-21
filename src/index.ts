@@ -24,6 +24,9 @@ export {type TableProps, default as Table } from './Table';
 // Input
 export * from './Input';
 
+// Crumbs
+export {Crumbs, CrumbLink, type CrumbItem, type CrumbsProps} from './Crumbs';
+
 // Utils
 export * from './utils';
 

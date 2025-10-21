@@ -5,8 +5,9 @@ import TableTest from "./components/TableTest"
 import { FormTest, FormTest2, ControlledFormTest   } from "./components/FormTest"
 import { useState } from "react";
 import { Divider, Typography } from "@mui/material";
-
-const TESTS = ['Table', 'Form', 'Form2', 'Controlled Form', 'Button'] as const;
+import CrumbsTest from "./components/Crumbs";
+import { MuitilsConfigProvider } from "../../../src/context";
+const TESTS = ['Table', 'Form', 'Form2', 'Controlled Form', 'Button', 'Crumbs'] as const;
 type Test = (typeof TESTS)[number];
 
 function TestComponent(props:{test:Test}){
@@ -21,22 +22,26 @@ function TestComponent(props:{test:Test}){
       return <ControlledFormTest />
     case 'Button':
       return <Button loading>Hello</Button>
+    case 'Crumbs':
+      return <CrumbsTest />
   }
 }
 
 function App() {
   const [test, setTest] = useState<Test>('Table');
   return (
-    <Col gap={3}>
-      <Row gap={3}>
-        {TESTS.map(testName => (
-          <Button variant={test === testName ? 'contained' : 'outlined'} key={testName} onClick={()=>setTest(testName)}>{testName}</Button>
-        ))}
-      </Row>
-      <Divider/>
-      <Typography variant="h4">{test}</Typography>
-      <TestComponent test={test} />
-    </Col>
+    <MuitilsConfigProvider.Provider value={{Crumbs: {navigation: {preferred: 'button', navigator: (path:string) => {console.log('navigating to', path)}}}}}>
+      <Col gap={3}>
+        <Row gap={3}>
+          {TESTS.map(testName => (
+            <Button variant={test === testName ? 'contained' : 'outlined'} key={testName} onClick={()=>setTest(testName)}>{testName}</Button>
+          ))}
+        </Row>
+        <Divider/>
+        <Typography variant="h4">{test}</Typography>
+        <TestComponent test={test} />
+      </Col>
+    </MuitilsConfigProvider.Provider>
   )
 }
 

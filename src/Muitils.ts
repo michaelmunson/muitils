@@ -1,6 +1,7 @@
 import { setConfig } from "./config";
 
 /**
+ * @deprecated Use the `MuitilsConfigProvider` context instead.
  * @description A class that contains static methods for configuring the components, among other things.
 */
 export class Muitils {

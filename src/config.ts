@@ -1,3 +1,5 @@
+import { CrumbsProps } from './Crumbs/types';
+import crumbsSx from './Crumbs/sx';
 import formSx from './Form/sx';
 import { FormProps } from './Form/types';
 import tableSx from './Table/sx';
@@ -34,6 +36,7 @@ const createConfig = <T extends {sx:S, props:P}, S extends ConfigSx<any> = any, 
 const CONFIG = <const>{
   Form: createConfig<{sx:typeof formSx, props:FormProps<any>}>(),
   Table: createConfig<{sx:typeof tableSx, props:TableProps}>(),
+  Crumbs: createConfig<{sx:typeof crumbsSx, props:CrumbsProps}>(),
 }
 
 /**
