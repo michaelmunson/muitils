@@ -33,11 +33,12 @@ export function CrumbLink(props:CrumbItem){
 
 export function Crumbs(props:CrumbsProps){
   const muitilsConfig = useMuitilsConfig();
+  const sxConfig = muitilsConfig.Crumbs?.sx ?? {} as any;
   const navigation = muitilsConfig.Crumbs?.navigation ?? {preferred: 'anchor'};
   const {items, navigation: navigationProps, sx, ...rest} = props;
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" {...rest} sx={crumbsSx(styles(), sx)}>
+    <Breadcrumbs aria-label="breadcrumb" {...rest} sx={crumbsSx(styles(), sxConfig, sx)}>
     {items.map((item, index) => (
       <CrumbLink key={`nav-crumb-${index}`} {...item} navigation={navigationProps ?? navigation} />
     ))}
