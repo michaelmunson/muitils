@@ -30,7 +30,7 @@ export {Crumbs, CrumbLink, type CrumbItem, type CrumbsProps} from './Crumbs';
 // Utils
 export * from './utils';
 
-export {MuitilsConfigProvider, type MuitilsConfig} from './context';
+export {MuitilsClient, type MuitilsConfig} from './context';
 
 // Muitils
 import {Muitils} from './Muitils';

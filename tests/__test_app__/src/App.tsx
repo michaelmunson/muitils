@@ -6,7 +6,7 @@ import { FormTest, FormTest2, ControlledFormTest   } from "./components/FormTest
 import { useState } from "react";
 import { Divider, Typography } from "@mui/material";
 import CrumbsTest from "./components/Crumbs";
-import { MuitilsConfigProvider } from "../../../src/context";
+import { MuitilsClient } from "../../../src/context";
 const TESTS = ['Table', 'Form', 'Form2', 'Controlled Form', 'Button', 'Crumbs'] as const;
 type Test = (typeof TESTS)[number];
 
@@ -30,7 +30,7 @@ function TestComponent(props:{test:Test}){
 function App() {
   const [test, setTest] = useState<Test>('Table');
   return (
-    <MuitilsConfigProvider.Provider value={{Crumbs: {navigation: {preferred: 'button', navigator: (path:string) => {console.log('navigating to', path)}}}}}>
+    <MuitilsClient.Provider value={{Crumbs: {navigation: {preferred: 'button', navigator: (path:string) => {console.log('navigating to', path)}}}}}>
       <Col gap={3}>
         <Row gap={3}>
           {TESTS.map(testName => (
@@ -41,7 +41,7 @@ function App() {
         <Typography variant="h4">{test}</Typography>
         <TestComponent test={test} />
       </Col>
-    </MuitilsConfigProvider.Provider>
+    </MuitilsClient.Provider>
   )
 }
 
