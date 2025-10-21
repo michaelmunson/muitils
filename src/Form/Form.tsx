@@ -6,7 +6,8 @@ import { defaultValidate, deriveInitialFormInputGroupResult, isCustomInput, isFo
 import Button from "../Button";
 import { isDateInput, isTextInput } from "./inputs/utils";
 import formSx, { styles } from "./sx";
-import { getConfig } from "../config";
+import { DefinedConfig, getConfig } from "../config";
+import { useMuitilsConfig } from "../hooks";
 
 
 /**
@@ -129,6 +130,9 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
   const [formInputResult, setFormInputResult] = useState<FormResult<T>>(deriveInitialFormInputGroupResult(inputs));
   const [isValidate, setIsValidate] = useState(_isValidate ?? false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const muitilsConfig = useMuitilsConfig();
+  const sxConfig = ((muitilsConfig.Form?.sx ?? getConfig().Form.sx) as DefinedConfig['Form']['sx']);
+  const transform = (muitilsConfig.Form?.transform ?? getConfig().Form.transform) as DefinedConfig['Form']['transform'];
 
   useEffect(() => {
     setIsValidate(_isValidate ?? false);
@@ -194,8 +198,8 @@ export default function Form<T extends FormInputGroup>(props: FormProps<T>) {
     throw new TypeError(`Incorrect props input for GenericFormInput "${keys.join('/')}"`)
   }, [isValidate, handleSetInputResult])
 
-  return getConfig().Form.transform(
-    <Col id={id} gap={3} sx={formSx(styles(), _sx)} {...rest}>
+  return transform(
+    <Col id={id} gap={3} sx={formSx(styles(sxConfig), _sx)} {...rest}>
       {Object.entries(inputs).map((entry, index) => {
         const [key, value] = entry;
         const toProps = <T extends Record<string, any>>(props: T) : T => {

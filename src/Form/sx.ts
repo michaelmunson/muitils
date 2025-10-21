@@ -5,7 +5,7 @@ const formSx = createSx({
   classes: ['form_input_row', 'submit_button'] as const,
 });
 
-export const styles = () => (
+export const styles = (configSx=getConfig().Form.sx) => (
   mergeSx([
     formSx({
       '& .form_input_row' : {

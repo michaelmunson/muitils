@@ -2,7 +2,8 @@ import { Paper, Table as MuiTable, TableBody, TableCell, TableContainer, TableHe
 import tableSx, { styles } from "./sx";
 import { TableProps } from "./types";
 import { mergeSx } from "../sx";
-import { getConfig } from "../config";
+import { DefinedConfig, getConfig } from "../config";
+import { useMuitilsConfig } from "../hooks";
 
 const classes = tableSx.classes;
 
@@ -54,7 +55,9 @@ export default function Table(props: TableProps) {
   const { head, body, loading, TableProps, TableHeadProps, TableBodyProps, TableRowProps, TableCellProps, sx, ...rest } = props;
   const { rows, ...bodyProps } = body;
   const { cells, ...headProps } = head;
-  const style = mergeSx([styles(), tableSx(sx)], { merge: 'deep' });
+  const muitilsConfig = useMuitilsConfig();
+  const sxConfig = (muitilsConfig.Table?.sx ?? getConfig().Table.sx) as DefinedConfig['Table']['sx'];
+  const style = mergeSx([styles(sxConfig), tableSx(sx)], { merge: 'deep' });
 
   return (
     <TableContainer component={Paper} sx={style} {...rest} {...getConfig().Table.props}>

@@ -12,8 +12,7 @@ const tableSx = createSx({
   ]
 });
 
-const styles = () => {
-  const configSx = getConfig().Table.sx;
+const styles = (configSx=getConfig().Table.sx) => {
   const defaultSx = tableSx({
     maxHeight: '80vh',
     scrollBehavior: 'smooth',
@@ -34,7 +33,6 @@ const styles = () => {
       '&:last-child td, &:last-child th': { border: 0 }
     }
   });
-
   return mergeSx([defaultSx, configSx], {merge: 'deep'});
 }
 

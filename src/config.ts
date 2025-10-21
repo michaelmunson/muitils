@@ -39,6 +39,8 @@ const CONFIG = <const>{
   Crumbs: {...createConfig<{sx:typeof crumbsSx, props:CrumbsProps}>(), navigation:{preferred: 'anchor'} as CrumbsProps['navigation']},
 }
 
+export type DefinedConfig = typeof CONFIG;
+
 export type Config = DeepPartial<typeof CONFIG>;
 
 /**
