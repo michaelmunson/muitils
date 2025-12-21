@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { DateInput as DateInputComponent, DateInputProps } from "../../../Input";
 import { InputPropsExtension } from "../../types";
-
+import { PickerValue } from "@mui/x-date-pickers/internals";
 
 
 export default function DateInput(props:DateInputProps & Omit<InputPropsExtension<string>, 'isValidate'>){
@@ -10,9 +10,9 @@ export default function DateInput(props:DateInputProps & Omit<InputPropsExtensio
     <DateInputComponent 
       {...rest}
       value={props.value ? dayjs(props.value) : undefined} 
-      onChange={(v:dayjs.Dayjs) => {
-        setValue(v.toISOString())
-        if (validate) validate(v.toISOString())
+      onChange={(v:PickerValue) => {
+        setValue(v?.toISOString() ?? '')
+        if (validate) validate(v?.toISOString() ?? '')
       }}
     />
   )

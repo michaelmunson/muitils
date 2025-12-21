@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Col } from "../../../../src";
-import Form, { text, number, date, autocomplete, select, form, custom } from "../../../../src/Form";
-import { useLog } from "../Log";
+import Form, { text, number, date, autocomplete, select, custom } from "../../../../src/Form";
 
 const onSubmit = async (v:any) => {
   await new Promise(resolve => setTimeout(resolve, 1000));

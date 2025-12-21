@@ -53,7 +53,7 @@ export const custom = <V, P extends object = object>(config:CustomFormInput<V, P
  * date('Birthday', {minDate: new Date(1900, 0, 1).toISOString(), maxDate: new Date(2024, 11, 20).toISOString()})
  * ```
 */ 
-export const date = (label:string, props?:Partial<DateFormInput>) => custom<string, DateFormInput>({label, value:'', ...props}, DateInput);
+export const date = (label:string, props?:Partial<DateFormInput>) => custom<string, DateFormInput>({label, value:'' as any , ...props}, DateInput);
 
 /**
  * @description Specifies an autocomplete input

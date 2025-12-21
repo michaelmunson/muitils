@@ -7,11 +7,14 @@ import { useState } from "react";
 import { Divider, Typography } from "@mui/material";
 import CrumbsTest from "./components/Crumbs";
 import { MuitilsClient } from "../../../src/context";
-const TESTS = ['Table', 'Form', 'Form2', 'Controlled Form', 'Button', 'Crumbs'] as const;
+import JsonForm from "./components/JsonForm";
+const TESTS = ['Table', 'Form', 'Form2', 'Controlled Form', 'Button', 'Crumbs', 'JsonForm'  ] as const;
 type Test = (typeof TESTS)[number];
 
 function TestComponent(props:{test:Test}){
   switch (props.test) {
+    case 'JsonForm':
+      return <JsonForm />
     case 'Table':
       return <TableTest />
     case 'Form':

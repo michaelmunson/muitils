@@ -42,6 +42,9 @@ function push(version, message){
   }
   const newVersion = incrementVersion(version);
   createDocs();
-  publish();
-  push(newVersion, message);
+  // publish();
+  // push(newVersion, message);
+  console.log(`New version: ${newVersion}`);
+  console.log('Run `npm publish --otp=<your-otp>` to publish');
+  
 })();

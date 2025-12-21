@@ -31,7 +31,7 @@ type DateInputProps = Omit<DatePickerProps<any>, 'sx'> & {sx?: MuiSxProps} & {
 */
 function DateInput(props: DateInputProps) {
   const { value, sx:_sx, ...rest } = props;
-  const dayjsValue:dayjs.Dayjs = (['string','number'].includes(typeof value) || value instanceof Date) ? dayjs(value) : value;
+  const dayjsValue:dayjs.Dayjs = (['string','number'].includes(typeof value) || value instanceof Date) ? dayjs(value) : (value ?? dayjs());
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

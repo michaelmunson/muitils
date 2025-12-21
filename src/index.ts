@@ -32,6 +32,9 @@ export * from './utils';
 
 export {MuitilsClient, type MuitilsConfig} from './context';
 
+// JsonForm
+export {JsonForm, type JsonFormProps} from './JsonForm';
+
 // Muitils
 import {Muitils} from './Muitils';
 
