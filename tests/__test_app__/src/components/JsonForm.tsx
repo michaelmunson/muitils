@@ -4,6 +4,7 @@ import {
   materialRenderers,
   materialCells,
 } from '@jsonforms/material-renderers';
+import { JsonForm } from '../../../../src/JsonForm';
 
 const schema = {
   "type": "object",
@@ -67,59 +68,7 @@ const schema = {
   ]
 };
 const uischema = {
-  "type": "VerticalLayout",
-  "elements": [
-    {
-      "type": "HorizontalLayout",
-      "elements": [
-        {
-          "type": "Control",
-          "scope": "#/properties/name"
-        },
-        {
-          "type": "Control",
-          "scope": "#/properties/personalData/properties/age"
-        },
-        {
-          "type": "Control",
-          "scope": "#/properties/birthDate"
-        }
-      ]
-    },
-    {
-      "type": "Label",
-      "text": "Additional Information"
-    },
-    {
-      "type": "HorizontalLayout",
-      "elements": [
-        {
-          "type": "Control",
-          "scope": "#/properties/personalData/properties/height"
-        },
-        {
-          "type": "Control",
-          "scope": "#/properties/nationality"
-        },
-        {
-          "type": "Control",
-          "scope": "#/properties/occupation",
-          "options": {
-            "suggestion": [
-              "Accountant",
-              "Engineer",
-              "Freelancer",
-              "Journalism",
-              "Physician",
-              "Student",
-              "Teacher",
-              "Other"
-            ]
-          }
-        }
-      ]
-    }
-  ]
+  "type": "VerticalLayout"
 };
 
 const initialData = {
@@ -133,21 +82,15 @@ const initialData = {
 }
 
 
-export default function JsonForm() {
-  const [data, setData] = useState(initialData);
+export default function JsonFormTest() {
   return (
-    <div className='App'>
-      <JsonForms
-        schema={schema}
-        uischema={uischema}
-        data={data}
-        renderers={materialRenderers}
-        cells={materialCells}
-        onChange={({ data, errors }) => {
-          setData(data);
-          console.log(data, errors);
-        }}
-      />
-    </div>
-  );
+    <JsonForm 
+      value={initialData}
+      schema={schema}
+      onSubmit={async (data) => {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      alert(JSON.stringify(data, null, 2));
+      return data;
+    }} />
+  )
 }
