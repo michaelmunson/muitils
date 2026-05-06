@@ -11,8 +11,6 @@ export const styles = () => (
       '& .muitils_disabled_crumb': {
       color: 'text.secondary',
       textDecoration: 'none',
-      cursor: 'default',
-      pointerEvents: 'none',
     }
     }),
     getConfig().Crumbs.sx

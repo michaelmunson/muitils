@@ -23,6 +23,8 @@ export type CrumbItem = {
 }
 
 export type CrumbsProps= BreadcrumbsProps & {
+  /**@description the props to pass to every `<CrumbLink/>` component.*/
+  CrumbProps?: Partial<CrumbItem>;
   items: CrumbItem[];
   navigation?: {
     preferred: 'anchor'
